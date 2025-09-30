@@ -1,0 +1,14 @@
+﻿node_modules/
+dist/
+build/
+.cache/
+*.log
+.env
+.env.*
+.vscode/
+.DS_Store
+Thumbs.db
+# ignora cualquier clave/credencial
+scripts/migration/service-account.json
+*service-account*.json
+*.credentials.json

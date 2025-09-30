@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LineXpert · Matemáticas</title>
+
+  <!-- Base global -->
+  <link rel="stylesheet" href="../index.css" />
+  <!-- Estilos de la sección -->
+  <link rel="stylesheet" href="./matematicas.css" />
+
+  <meta name="description" content="Entrena tu razonamiento cuantitativo con niveles cronometrados de Matemáticas." />
+  <link rel="icon" href="../logopagina.webp" type="image/webp" />
+</head>
+
+<body>
+  <header id="lx-header"></header>
+
+  <main class="lx-container">
+    <h1 class="page-title">Matemáticas</h1>
+
+    <section class="meta-bar" aria-label="Información de usuario y navegación">
+      <div class="greeting" id="lx-greeting">Hola, Invitado 👋</div>
+
+      <div class="session-chip" title="Estado de sesión">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Sesión: <strong id="lx-session">anónima</strong></span>
+      </div>
+
+      <a class="btn btn-dark" href="../index.html">Volver</a>
+    </section>
+
+    <!-- GRID DE NIVELES -->
+    <section class="levels" id="levels" aria-label="Niveles disponibles">
+      <noscript>Activa JavaScript para ver los niveles.</noscript>
+    </section>
+
+    <!-- Leaderboard -->
+    <section class="leaderboard" aria-labelledby="lbTitle">
+      <h2 id="lbTitle">Puntaje de usuarios</h2>
+      <div id="lbEmpty" class="lb-empty">Cargando…</div>
+      <ol id="lbList" class="lb-list"></ol>
+    </section>
+  </main>
+
+  <footer class="lx-footer" aria-label="Pie de página">
+    <small>LineXpert · Beta</small>
+  </footer>
+
+  <!-- Asegura que auth.js se cargue como módulo (ruta correcta) -->
+  <script type="module">
+    import "../servicios/auth.js";
+  </script>
+
+  <!-- cabecera como módulo (si dentro hace imports) -->
+  <script type="module" src="../cabecera.js"></script>
+
+  <!-- Lógica de la sección (IIFE, no necesita módulo) -->
+  <script src="./matematicas.js" defer></script>
+</body>
+</html>

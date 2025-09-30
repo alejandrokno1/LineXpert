@@ -1,0 +1,151 @@
+<!-- ===== MODAL AUTH (optimizado) ===== -->
+<div id="lx-auth-modal" class="lx-auth-backdrop" hidden>
+  <div class="lx-auth-card" role="dialog" aria-modal="true" aria-labelledby="lx-auth-title">
+    <button class="lx-auth-close" data-auth-close aria-label="Cerrar">&times;</button>
+
+    <h2 id="lx-auth-title" class="visualmente-oculto">Acceder o registrarse</h2>
+
+    <div class="lx-auth-tabs" role="tablist" aria-label="Selector de autenticación">
+      <button id="lx-tab-login"
+              class="lx-auth-tab is-active"
+              data-panel="login"
+              role="tab"
+              aria-selected="true"
+              aria-controls="lx-panel-login">
+        Acceder
+      </button>
+      <button id="lx-tab-register"
+              class="lx-auth-tab"
+              data-panel="register"
+              role="tab"
+              aria-selected="false"
+              aria-controls="lx-panel-register">
+        Registrarse
+      </button>
+    </div>
+
+    <!-- Panel: ACCEDER -->
+    <section id="lx-panel-login"
+             class="lx-auth-panel"
+             data-panel="login"
+             role="tabpanel"
+             aria-labelledby="lx-tab-login">
+      <form id="lx-form-login" class="lx-auth-form" novalidate>
+        <label>Correo
+          <input class="lx-auth-input"
+                 type="email"
+                 id="lx-login-email"
+                 placeholder="tucorreo@ejemplo.com"
+                 autocomplete="username"
+                 required />
+        </label>
+        <label>Contraseña
+          <input class="lx-auth-input"
+                 type="password"
+                 id="lx-login-pass"
+                 placeholder="Mínimo 6 caracteres"
+                 minlength="6"
+                 autocomplete="current-password"
+                 required />
+        </label>
+
+        <button type="submit" class="lx-btn lx-btn--primary lx-btn--full">Ingresar</button>
+
+        <p class="lx-muted" style="margin-top:.5rem">
+          ¿Olvidaste tu contraseña?
+          <button class="lx-link" type="button" id="lx-forgot">Restablécela</button>
+        </p>
+
+        <div class="lx-sep" aria-hidden="true"><span>o</span></div>
+
+        <button type="button"
+                id="lx-login-google"
+                class="lx-btn lx-btn--google lx-btn--full"
+                aria-label="Continuar con Google">
+          <svg class="g" viewBox="0 0 48 48" aria-hidden="true">
+            <use href="#icon-google"></use>
+          </svg>
+          Continuar con Google
+        </button>
+
+        <p class="lx-msg" id="lx-login-msg" aria-live="polite"></p>
+        <p class="lx-muted">¿No tienes cuenta?
+          <button class="lx-link" type="button" data-goto="register">Regístrate</button>
+        </p>
+      </form>
+    </section>
+
+    <!-- Panel: REGISTRARSE -->
+    <section id="lx-panel-register"
+             class="lx-auth-panel"
+             data-panel="register"
+             role="tabpanel"
+             aria-labelledby="lx-tab-register"
+             hidden>
+      <form id="lx-form-register" class="lx-auth-form" novalidate>
+        <label>Nombre público (ranking)
+          <input class="lx-auth-input"
+                 type="text"
+                 id="lx-reg-name"
+                 placeholder="Ej: juan_perez"
+                 minlength="3"
+                 maxlength="24"
+                 required />
+        </label>
+        <label>Correo
+          <input class="lx-auth-input"
+                 type="email"
+                 id="lx-reg-email"
+                 autocomplete="email"
+                 required />
+        </label>
+        <label>Contraseña
+          <input class="lx-auth-input"
+                 type="password"
+                 id="lx-reg-pass"
+                 minlength="6"
+                 autocomplete="new-password"
+                 required />
+        </label>
+        <label>Repite contraseña
+          <input class="lx-auth-input"
+                 type="password"
+                 id="lx-reg-pass2"
+                 minlength="6"
+                 autocomplete="new-password"
+                 required />
+        </label>
+
+        <button type="submit" class="lx-btn lx-btn--primary lx-btn--full">Crear cuenta</button>
+
+        <div class="lx-sep" aria-hidden="true"><span>o</span></div>
+
+        <button type="button"
+                id="lx-reg-google"
+                class="lx-btn lx-btn--google lx-btn--full"
+                aria-label="Continuar con Google">
+          <svg class="g" viewBox="0 0 48 48" aria-hidden="true">
+            <use href="#icon-google"></use>
+          </svg>
+          Continuar con Google
+        </button>
+
+        <p class="lx-msg" id="lx-reg-msg" aria-live="polite"></p>
+        <p class="lx-muted">¿Ya tienes cuenta?
+          <button class="lx-link" type="button" data-goto="login">Accede</button>
+        </p>
+      </form>
+    </section>
+
+    <!-- Sprite SVG reutilizable (evita duplicar paths) -->
+    <svg width="0" height="0" style="position:absolute;left:-9999px;visibility:hidden">
+      <symbol id="icon-google" viewBox="0 0 48 48">
+        <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 31.9 29.3 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 19.4-7.6 21-17.5v-7z"/>
+        <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 5.1 29.6 3 24 3 15.5 3 8.4 7.8 6.3 14.7z"/>
+        <path fill="#4CAF50" d="M24 45c5.2 0 10.1-2 13.7-5.3l-6.3-5.1C29.3 35 26.8 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C8.3 41.9 15.6 45 24 45z"/>
+        <path fill="#1976D2" d="M45 24c0-1.6-.2-3.1-.6-4.5H24v8h11.3c-.9 3.9-4.4 6.8-8.3 6.8-2.6 0-4.8-1.1-6.5-2.9l-6.5 5C16.7 40.7 20.1 42 24 42c8.6 0 15.7-7 15.7-15.7.1-.8.1-1.4.1-2.3z"/>
+      </symbol>
+    </svg>
+  </div>
+</div>
+<!-- ===== /MODAL AUTH ===== -->

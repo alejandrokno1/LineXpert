@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nivel 5 · Potenciación</title>
+
+  <!-- Base global -->
+  <link rel="stylesheet" href="../../index.css" />
+  <!-- Estilos del nivel -->
+  <link rel="stylesheet" href="./n5.css" />
+</head>
+<body>
+  <main class="n-wrap">
+    <header class="topbar">
+      <h1 class="page-title">Nivel 5 · <span>Potenciación</span></h1>
+      <div class="top-actions">
+        <a class="btn btn-ghost" href="../matematicas.html">Volver a niveles</a>
+        <a class="btn btn-dark"  href="../../index.html">Menú</a>
+      </div>
+    </header>
+
+    <p class="subtitle">
+      1:00 para resolver la mayor cantidad de <strong>potencias</strong> con exponentes positivos (hasta 4).
+      Aparecen ejercicios como <em>2^3</em>, <em>2^1 + 3^3</em>, <em>2^3 × 3^3</em>. Responde siempre con
+      <strong>enteros</strong>.
+    </p>
+
+    <section class="panel">
+      <div class="panel-row">
+        <button id="btnStart" class="btn btn-dark">Iniciar</button>
+        <div class="muted">Tiempo total: <strong>1:00</strong></div>
+        <div id="bestBadge" class="badge-record">Sin récord</div>
+      </div>
+
+      <!-- Cronómetro -->
+      <div class="timer-wrap">
+        <div id="timerPill" class="timer-pill">01:00</div>
+        <div class="timerbar"><div id="timerFill" class="timerbar-fill"></div></div>
+      </div>
+
+      <!-- Operación -->
+      <div id="equation" class="equation">— — —</div>
+
+      <!-- Respuesta -->
+      <label for="answer" class="lbl">Respuesta</label>
+      <input id="answer" class="inp" type="text"
+             inputmode="numeric" pattern="[0-9]*" autocomplete="off"
+             placeholder="Escribe el resultado entero y presiona Enter" disabled />
+
+      <!-- Acciones -->
+      <div class="actions">
+        <button id="btnSend"  class="btn btn-dark" disabled>Enviar</button>
+        <button id="btnSkip"  class="btn" disabled>Saltar</button>
+        <button id="btnReset" class="btn">Reiniciar</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="k">Aciertos</div>
+          <div id="ok" class="v">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">Intentos</div>
+          <div id="tries" class="v">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">Precisión</div>
+          <div id="prec" class="v">0.00%</div>
+        </div>
+        <div class="stat">
+          <div class="k">APM</div>
+          <div id="apm" class="v">0.00</div>
+        </div>
+      </div>
+    </section>
+
+    <details class="help">
+      <summary>Formato aceptado</summary>
+      <ul>
+        <li>Responde con <strong>enteros</strong> (sin comas ni puntos).</li>
+        <li>Ejemplos: <code>2^3</code>, <code>2^1 + 3^3</code>, <code>2^3 × 3^3</code>.</li>
+        <li>Tip: <code>a^b × c^b = (a·c)^b</code>. Por ejemplo <code>2^3 × 3^3 = 6^3 = 216</code>.</li>
+      </ul>
+    </details>
+  </main>
+
+  <!-- Lógica -->
+  <script src="./n5.js"></script>
+  <!-- Auth/Firestore (lazy) -->
+  <script type="module" src="../../servicios/auth.js"></script>
+</body>
+</html>

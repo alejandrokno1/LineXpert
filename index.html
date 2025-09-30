@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LineXpert · Procesos de Pensamiento</title>
+
+  <!-- SEO básico -->
+  <meta name="description" content="Ejercicios de matemáticas y lectura para fortalecer procesos de pensamiento." />
+  <meta name="theme-color" content="#0b0e14" />
+
+  <!-- Social -->
+  <meta property="og:title" content="LineXpert · Procesos de Pensamiento" />
+  <meta property="og:description" content="Ejercicios de matemáticas y lectura para fortalecer procesos de pensamiento." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="logopagina.webp" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="logopagina.webp" type="image/webp" />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="index.css" />
+  <!-- Estilos del modal de autenticación -->
+  <link rel="stylesheet" href="./servicios/modal-auths.css" />
+</head>
+<body>
+  <!-- Accesibilidad: salto al contenido -->
+  <a class="saltar" href="#contenido">Saltar al contenido principal</a>
+
+  <!-- Cabecera / Navegación -->
+  <header id="cabecera" class="cabecera" aria-label="Encabezado del sitio">
+    <nav class="navegacion barra-superior" aria-label="Principal">
+      <a class="marca" href="./index.html" aria-current="page">
+        <img class="logo" src="logopagina.webp" width="40" height="40" alt="" aria-hidden="true" />
+        <span>LineXpert</span>
+        <span class="etiqueta">Beta</span>
+      </a>
+
+      <div class="espaciador" aria-hidden="true"></div>
+
+      <a class="enlace" href="./Lectura/lectura.html">Lectura</a>
+      <a class="enlace" href="./matematicas/matematicas.html">Matemáticas</a>
+
+      <!-- Estado de sesión + botón auth (el click lo maneja modal-auth.js) -->
+      <div class="nav-auth" style="display:flex;gap:.5rem;align-items:center;">
+        <div class="session-chip">
+          <span>Sesión: <strong id="lx-session">anónima</strong></span>
+        </div>
+        <button id="btn-auth" type="button" class="boton boton--primario boton--grande">
+          Entrar / Registrarse
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido" class="contenido" tabindex="-1">
+    <!-- HERO -->
+    <section class="hero-3d" aria-labelledby="titulo-hero">
+      <div class="hero-3d__contenedor">
+        <h1 id="titulo-hero" class="titulo-3d">Bienvenido a Procesos de Pensamiento</h1>
+        <p class="subtitulo">Practica y mejora tus habilidades con actividades guiadas.</p>
+        <!-- Saludo (se actualiza por cabecera.js) -->
+        <p id="lx-greeting" class="saludo" style="margin-top:.25rem;">Hola, Invitado 👋</p>
+      </div>
+      <i class="wave" aria-hidden="true"></i>
+    </section>
+
+    <!-- Sección principal -->
+    <section class="seccion" aria-labelledby="seccion-areas">
+      <div class="principal">
+        <div class="principal__contenido">
+          <h2 id="seccion-areas" class="visualmente-oculto">Áreas disponibles</h2>
+          <div class="rejilla">
+            <!-- Matemáticas -->
+            <article class="tarjeta tarjeta--activa tarjeta--matematicas reveal">
+              <header class="tarjeta__encabezado">
+                <h3 class="tarjeta__titulo" title="Ejercicios y retos">
+                  <span class="icono-circulo">➗</span> Matemáticas
+                </h3>
+              </header>
+              <p class="tarjeta__texto">Ejercicios, retos y guías para mejorar tus habilidades.</p>
+              <footer class="tarjeta__acciones">
+                <a class="boton boton--primario" href="./matematicas/matematicas.html" aria-label="Ir a Matemáticas">Entrar</a>
+              </footer>
+            </article>
+
+            <!-- Lectura -->
+            <article class="tarjeta tarjeta--activa tarjeta--lectura reveal">
+              <header class="tarjeta__encabezado">
+                <h3 class="tarjeta__titulo" title="Comprensión y análisis">
+                  <span class="icono-circulo">📖</span> Lectura
+                </h3>
+              </header>
+              <p class="tarjeta__texto">Comprensión lectora, análisis de textos y más.</p>
+              <footer class="tarjeta__acciones">
+                <a class="boton boton--primario" href="./Lectura/lectura.html" aria-label="Ir a Lectura">Entrar</a>
+              </footer>
+            </article>
+
+            <article class="tarjeta tarjeta--inactiva reveal" aria-disabled="true">
+              <header class="tarjeta__encabezado">
+                <h3 class="tarjeta__titulo tarjeta__titulo--suave">Pensamiento Lógico</h3>
+              </header>
+              <p class="tarjeta__texto tarjeta__texto--suave">Próximamente disponible</p>
+            </article>
+
+            <article class="tarjeta tarjeta--inactiva reveal" aria-disabled="true">
+              <header class="tarjeta__encabezado">
+                <h3 class="tarjeta__titulo tarjeta__titulo--suave">Conocimientos Policiales</h3>
+              </header>
+              <p class="tarjeta__texto tarjeta__texto--suave">Próximamente disponible</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Barra lateral: Actualizaciones -->
+        <aside class="tarjeta panel-actualizaciones panel--acento reveal" aria-labelledby="titulo-actualizaciones">
+          <h3 id="titulo-actualizaciones" class="tarjeta__titulo">Actualizaciones</h3>
+          <ul id="lista-actualizaciones" class="actualizaciones" aria-live="polite"></ul>
+          <noscript>
+            <ul class="actualizaciones">
+              <li class="actualizacion"><time datetime="2025-08-21">21 ago 2025</time> — Portada con título 3D, cuadrícula 2×2 y barra lateral de novedades.</li>
+              <li class="actualizacion"><time datetime="2025-08-15">15 ago 2025</time> — Optimización de estilos y rendimiento.</li>
+              <li class="actualizacion"><time datetime="2025-08-01">01 ago 2025</time> — Lanzamiento beta de Matemáticas y Lectura.</li>
+            </ul>
+          </noscript>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer id="pie" class="pie" aria-label="Información legal y enlaces secundarios">
+    <small>© 2025 LineXpert — Todos los derechos reservados</small><br />
+    <small>Creado por ING. Guillermo Alejandro Cano</small>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a class="boton-wsp"
+     href="https://wa.me/573144909109?text=Hola%20vengo%20de%20LineXpert%20%E2%9C%8C%EF%B8%8F"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Chatear por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20.52 3.49A11.94 11.94 0 0 0 12.03 0C5.52 0 .18 5.34.18 11.93c0 2.1.55 4.15 1.6 5.96L0 24l6.27-1.64a11.93 11.93 0 0 0 5.76 1.47h.01c6.5 0 11.84-5.34 11.84-11.93 0-3.18-1.24-6.18-3.36-8.41zm-8.49 19.46h-.01a10.3 10.3 0 0 1-5.26-1.45l-.38-.22-3.72.97.99-3.62-.25-.37a10.26 10.26 0 0 1-1.6-5.54C1.8 6.25 6.57 1.5 12.04 1.5c2.7 0 5.23 1.05 7.13 2.95a10.4 10.4 0 0 1 3.02 7.15c0 5.47-4.77 10.34-10.17 11.35zm5.6-7.56c-.31-.16-1.84-.9-2.13-1-.28-.11-.49-.16-.7.16-.2.31-.8 1-.98 1.21-.18.21-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.81-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.46-.54.15-.18.2-.31.31-.52.1-.21.05-.39-.02-.54-.08-.16-.7-1.64-.96-2.24-.25-.6-.5-.52-.7-.53h-.6c-.2 0-.52.08-.79.39-.27.31-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.06.15.2 2.1 3.3 5.07 4.63.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.08 1.84-.75 2.1-1.47.26-.72.26-1.33.18-1.46-.08-.12-.28-.2-.59-.36z"/>
+    </svg>
+  </a>
+
+  <!-- ==== Modal de Autenticación (HTML en el DOM) ==== -->
+  <div id="lx-auth-modal" class="lx-auth-backdrop" hidden>
+    <div class="lx-auth-card" role="dialog" aria-modal="true">
+      <button class="lx-auth-close" data-auth-close aria-label="Cerrar">&times;</button>
+
+      <div class="lx-auth-tabs" role="tablist">
+        <button class="lx-auth-tab is-active" data-panel="login" role="tab" aria-selected="true">Acceder</button>
+        <button class="lx-auth-tab" data-panel="register" role="tab" aria-selected="false">Registrarse</button>
+      </div>
+
+      <!-- Panel: ACCEDER -->
+      <section class="lx-auth-panel" data-panel="login" role="tabpanel">
+        <form id="lx-form-login" class="lx-auth-form">
+          <label>Correo
+            <input class="lx-auth-input"
+                   type="email"
+                   id="lx-login-email"
+                   placeholder="tucorreo@ejemplo.com"
+                   autocomplete="username"
+                   required />
+          </label>
+          <label>Contraseña
+            <input class="lx-auth-input"
+                   type="password"
+                   id="lx-login-pass"
+                   placeholder="Mínimo 6 caracteres"
+                   minlength="6"
+                   autocomplete="current-password"
+                   required />
+          </label>
+
+          <button type="submit" class="lx-btn lx-btn--primary lx-btn--full">Ingresar</button>
+
+          <!-- Restablecer contraseña -->
+          <p class="lx-muted" style="margin-top:.5rem">
+            ¿Olvidaste tu contraseña?
+            <button class="lx-link" type="button" id="lx-forgot">Restablécela</button>
+          </p>
+
+          <div class="lx-sep"><span>o</span></div>
+
+          <button type="button" id="lx-login-google" class="lx-btn lx-btn--google lx-btn--full" aria-label="Continuar con Google">
+            <svg class="g" viewBox="0 0 48 48" aria-hidden="true">
+              <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 31.9 29.3 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 19.4-7.6 21-17.5v-7z"/>
+              <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 5.1 29.6 3 24 3 15.5 3 8.4 7.8 6.3 14.7z"/>
+              <path fill="#4CAF50" d="M24 45c5.2 0 10.1-2 13.7-5.3l-6.3-5.1C29.3 35 26.8 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C8.3 41.9 15.6 45 24 45z"/>
+              <path fill="#1976D2" d="M45 24c0-1.6-.2-3.1-.6-4.5H24v8h11.3c-.9 3.9-4.4 6.8-8.3 6.8-2.6 0-4.8-1.1-6.5-2.9l-6.5 5C16.7 40.7 20.1 42 24 42c8.6 0 15.7-7 15.7-15.7.1-.8.1-1.4.1-2.3z"/>
+            </svg>
+            Continuar con Google
+          </button>
+
+          <p class="lx-msg" id="lx-login-msg"></p>
+          <p class="lx-muted">¿No tienes cuenta?
+            <button class="lx-link" type="button" data-goto="register">Regístrate</button>
+          </p>
+        </form>
+      </section>
+
+      <!-- Panel: REGISTRARSE -->
+      <section class="lx-auth-panel" data-panel="register" role="tabpanel" hidden>
+        <form id="lx-form-register" class="lx-auth-form">
+          <label>Nombre público (ranking)
+            <input class="lx-auth-input" type="text" id="lx-reg-name" placeholder="Ej: juan_perez" minlength="3" maxlength="24" required />
+          </label>
+          <label>Correo
+            <input class="lx-auth-input" type="email" id="lx-reg-email" autocomplete="email" required />
+          </label>
+          <label>Contraseña
+            <input class="lx-auth-input" type="password" id="lx-reg-pass" minlength="6" autocomplete="new-password" required />
+          </label>
+          <label>Repite contraseña
+            <input class="lx-auth-input" type="password" id="lx-reg-pass2" minlength="6" autocomplete="new-password" required />
+          </label>
+
+          <button type="submit" class="lx-btn lx-btn--primary lx-btn--full">Crear cuenta</button>
+
+          <div class="lx-sep"><span>o</span></div>
+
+          <button type="button" id="lx-reg-google" class="lx-btn lx-btn--google lx-btn--full" aria-label="Continuar con Google">
+            <svg class="g" viewBox="0 0 48 48" aria-hidden="true">
+              <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 31.9 29.3 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 5.1 29.6 3 24 3 15.5 3 8.4 7.8 6.3 14.7z"/>
+              <path fill="#4CAF50" d="M24 45c5.2 0 10.1-2 13.7-5.3l-6.3-5.1C29.3 35 26.8 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C8.3 41.9 15.6 45 24 45z"/>
+              <path fill="#1976D2" d="M45 24c0-1.6-.2-3.1-.6-4.5H24v8h11.3c-.9 3.9-4.4 6.8-8.3 6.8-2.6 0-4.8-1.1-6.5-2.9l-6.5 5C16.7 40.7 20.1 42 24 42c8.6 0 15.7-7 15.7-15.7.1-.8.1-1.4.1-2.3z"/>
+            </svg>
+            Continuar con Google
+          </button>
+
+          <p class="lx-msg" id="lx-reg-msg"></p>
+          <p class="lx-muted">¿Ya tienes cuenta?
+            <button class="lx-link" type="button" data-goto="login">Accede</button>
+          </p>
+        </form>
+      </section>
+    </div>
+  </div>
+  <!-- ==== /Modal de Autenticación ==== -->
+
+  <!-- Scripts (el orden importa: modal antes de cabecera) -->
+  <script type="module" src="./servicios/modal-auth.js"></script>
+  <script type="module" src="actualizaciones.js"></script>
+  <script type="module" src="cabecera.js"></script>
+  <!-- (cabecera.js y modal-auth.js importan ./servicios/auth.js) -->
+</body>
+</html>

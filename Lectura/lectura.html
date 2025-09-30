@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LineXpert · Lectura</title>
+
+  <!-- Estilos base y de sección -->
+  <link rel="stylesheet" href="../index.css" />
+  <link rel="stylesheet" href="./lectura.css" />
+
+  <meta name="description" content="Entrena comprensión lectora por niveles con tiempo, WPM y precisión." />
+  <link rel="icon" href="../logopagina.webp" type="image/webp" />
+</head>
+
+<body>
+  <header id="lx-header"></header>
+
+  <main class="lx-container">
+    <h1 class="page-title">Lectura — Entrenamiento por niveles</h1>
+
+    <section class="meta-bar" aria-label="Información de usuario y navegación">
+      <div class="greeting" id="lx-greeting">Hola, Invitado 👋</div>
+
+      <div class="session-chip" title="Estado de sesión">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Sesión: <strong id="lx-session">anónima</strong></span>
+      </div>
+
+      <a class="btn btn-dark" href="../index.html">Volver</a>
+    </section>
+
+    <!-- Grid de niveles (se rellena por JS) -->
+    <section class="levels" id="levels">
+      <noscript>Activa JavaScript para ver los niveles.</noscript>
+    </section>
+  </main>
+
+  <footer class="lx-footer"><small>LineXpert · Beta</small></footer>
+
+  <script src="../cabecera.js" defer></script>
+  <script src="./lectura.js" defer></script>
+  <script type="module" src="./servicios/auth.js"></script>
+</body>
+</html>

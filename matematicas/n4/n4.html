@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nivel 4 · División</title>
+
+  <!-- Base global del sitio -->
+  <link rel="stylesheet" href="../../index.css" />
+  <!-- Estilos específicos del nivel (mismo look que n1/n3) -->
+  <link rel="stylesheet" href="./n4.css" />
+</head>
+<body class="n4">
+  <main class="n-wrap">
+    <header class="topbar">
+      <h1 class="page-title">Nivel 4 · <span>División</span></h1>
+      <div class="top-actions">
+        <a class="btn btn-ghost" href="../matematicas.html">Volver a niveles</a>
+        <a class="btn btn-dark" href="../../index.html">Menú</a>
+      </div>
+    </header>
+
+    <p class="subtitle">
+      1:00 para resolver la mayor cantidad de <strong>divisiones sencillas</strong>.
+      Dividendo con <strong>≤ 3 enteros</strong> y divisor con <strong>≤ 2 enteros</strong>.
+      Puede haber decimales en ambos, en uno o en ninguno. <em>Siempre exactas</em>.
+    </p>
+
+    <section class="panel">
+      <div class="panel-row">
+        <button id="btnStart" class="btn btn-dark">Iniciar</button>
+        <div class="muted"><b>Tiempo total:</b> 1:00</div>
+        <div id="bestBadge" class="badge-record">Sin récord</div>
+      </div>
+
+      <div class="timer-wrap">
+        <div id="timerPill" class="timer-pill">01:00</div>
+        <div class="timerbar"><div id="timerFill" class="timerbar-fill"></div></div>
+      </div>
+
+      <div id="equation" class="equation">— — —</div>
+
+      <div class="field">
+        <label class="lbl" for="answer">Respuesta</label>
+        <input id="answer" class="inp" type="text" inputmode="decimal" autocomplete="off" disabled
+               placeholder="Escribe el resultado con 0–2 decimales y presiona Enter" />
+      </div>
+
+      <div class="actions">
+        <button id="btnSend" class="btn btn-dark" disabled>Enviar</button>
+        <button id="btnSkip" class="btn" disabled>Saltar</button>
+        <button id="btnReset" class="btn">Reiniciar</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="k">Aciertos</div>
+          <div id="ok" class="v">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">Intentos</div>
+          <div id="tries" class="v">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">Precisión</div>
+          <div id="prec" class="v">0.00%</div>
+        </div>
+        <div class="stat">
+          <div class="k">APM</div>
+          <div id="apm" class="v">0.00</div>
+        </div>
+      </div>
+    </section>
+
+    <details class="help">
+      <summary>Formato aceptado</summary>
+      <ul>
+        <li>Puedes usar <b>punto</b> o <b>coma</b> decimal.</li>
+        <li>Se aceptan <b>0–2 decimales</b>. Los ceros finales también valen (ej: <code>12.50</code>).</li>
+        <li>Ejemplos válidos: <code>24</code>, <code>3.5</code>, <code>7,00</code>.</li>
+      </ul>
+    </details>
+  </main>
+
+  <script src="./n4.js"></script>
+  <script type="module" src="../../servicios/auth.js"></script>
+</body>
+</html>
