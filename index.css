@@ -131,6 +131,7 @@ button,input,select,textarea{font:inherit}
 .titulo-3d{
   margin:0; font-size:clamp(2rem, 1rem + 4vw, 3rem);
   font-weight:900; letter-spacing:.3px; color:#101827;
+  /* efecto 3D (solo desktop / tablet) */
   text-shadow:
     1px 1px 0 var(--canto), 2px 2px 0 var(--canto), 3px 3px 0 var(--canto),
     4px 4px 0 var(--canto), 5px 5px 0 var(--canto), 6px 6px 0 var(--canto),
@@ -198,7 +199,7 @@ button,input,select,textarea{font:inherit}
   .rejilla{grid-template-columns:1fr}
 }
 
-/* 9) Header móvil (≤640px) */
+/* 9) Header + Hero móvil (≤640px) — optimizado */
 @media (max-width:640px){
   .navegacion{
     display:grid;
@@ -217,15 +218,23 @@ button,input,select,textarea{font:inherit}
   }
   .navegacion > .enlace{grid-column:1 / -1; justify-self:center; padding:.35rem .6rem}
   .logo{width:32px; height:32px}
-  .hero-3d__contenedor{padding:var(--sp-8) var(--sp-4) var(--sp-4)}
-  .titulo-3d{
-    font-size:clamp(1.6rem, 4.2vw + 1rem, 2.2rem);
-    text-shadow:
-      1px 1px 0 var(--canto), 2px 2px 0 var(--canto), 3px 3px 0 var(--canto),
-      4px 4px 0 var(--canto), 5px 5px 0 var(--canto), 6px 6px 0 var(--canto),
-      7px 7px 0 var(--canto), 8px 8px 0 var(--canto), 9px 9px 0 var(--canto),
-      10px 10px 0 var(--canto);
+
+  .hero-3d__contenedor{
+    padding:var(--sp-8) var(--sp-4) var(--sp-6);
+    max-width:920px;              /* evita líneas larguísimas en móviles anchos */
   }
+  .titulo-3d{
+    font-size: clamp(1.5rem, 6.4vw, 2.1rem);
+    line-height: 1.15;
+    letter-spacing: .2px;
+    word-break: break-word;
+    hyphens: auto;
+    /* sombra ligera para que no se “empaste” */
+    text-shadow:
+      0 1px 0 var(--canto),
+      0 2px 8px rgba(2,6,23,.18) !important;
+  }
+  .subtitulo{font-size:.95rem; line-height:1.3}
 }
 
 /* 9.1) Ultra-estrecho (≤420px) */
@@ -243,6 +252,13 @@ button,input,select,textarea{font:inherit}
     width:100%; padding:.65rem .9rem; border-radius:14px; font-size:.95rem;
   }
   .barra-superior{padding:.6rem}
+
+  .titulo-3d{
+    font-size: clamp(1.35rem, 6vw, 1.8rem);
+    text-shadow:
+      0 1px 0 var(--canto),
+      0 2px 6px rgba(2,6,23,.16) !important;
+  }
 }
 
 /* 10) Dark mode */
@@ -261,6 +277,17 @@ button,input,select,textarea{font:inherit}
     color:#e5e7eb; box-shadow:0 6px 16px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
   }
   .panel--acento::before{opacity:.8}
+}
+
+/* 10.1) Dark + móvil: sombras más suaves para el título */
+@media (max-width:640px) and (prefers-color-scheme: dark){
+  :root{ --canto:#1a2437; }
+  .titulo-3d{
+    color:#e7ebff;
+    text-shadow:
+      0 1px 0 rgba(0,0,0,.35),
+      0 2px 10px rgba(0,0,0,.45) !important;
+  }
 }
 
 /* 11) Reduce motion */
@@ -352,11 +379,18 @@ button,input,select,textarea{font:inherit}
 }
 .boton-wsp:hover{transform:translateY(-2px); box-shadow:0 16px 32px rgba(2,6,23,.25)}
 .boton-wsp svg{width:28px; height:28px; fill:currentColor}
-@media (hover:none){ .boton-wsp{ animation:pulse 3s ease-in-out infinite } }
-@keyframes pulse{ 0%,100%{ box-shadow:0 10px 24px rgba(2,6,23,.20) } 50%{ box-shadow:0 12px 34px rgba(37,211,102,.35) } }
+
+/* Móvil para botón WSP (único bloque, sin duplicados) */
 @media (max-width:640px){
-  .boton-wsp{right:12px; bottom:12px; width:52px; height:52px}
-  .boton-wsp svg{width:24px; height:24px}
+  .boton-wsp{ right:12px; bottom:12px; width:52px; height:52px }
+  .boton-wsp svg{ width:24px; height:24px }
 }
 
-
+/* Animación pulsante solo en pantallas táctiles */
+@media (hover:none){
+  .boton-wsp{ animation:pulse 3s ease-in-out infinite }
+}
+@keyframes pulse{
+  0%,100%{ box-shadow:0 10px 24px rgba(2,6,23,.20) }
+  50%{    box-shadow:0 12px 34px rgba(37,211,102,.35) }
+}
