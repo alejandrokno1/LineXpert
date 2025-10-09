@@ -18,10 +18,11 @@ export const LEVELS_CANON = Object.freeze({
   math_n6: ['math_l6'],
   math_n7: ['math_l7'],
   math_n8: ['math_l8'],
+  math_n8: ['math_l9'],
 });
 export const LEVEL_POINTS = Object.freeze({
   math_n1: 10, math_n2: 10, math_n3: 10, math_n4: 10,
-  math_n5: 10, math_n6: 10, math_n7: 10, math_n8: 10,
+  math_n5: 10, math_n6: 10, math_n7: 10, math_n8: 10,math_n9: 10, 
 });
 const LEGACY_TO_CANON = Object.freeze(
   Object.fromEntries(

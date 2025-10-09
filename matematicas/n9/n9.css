@@ -1,0 +1,130 @@
+/* Paleta consistente (ajusta si tu /matematicas.css define variables) */
+:root{
+  --bg: #f7f9fb;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --primary: #2563eb;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --card: #ffffff;
+  --border: #e2e8f0;
+}
+
+html,body{height:100%}
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height:1.4;
+}
+
+.nivel{
+  max-width: 880px;
+  margin: 24px auto;
+  padding: 0 16px 40px;
+}
+
+.nivel__topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.nivel__title{font-size:1.1rem;font-weight:700;margin:0}
+.nivel__back{
+  text-decoration:none;
+  color: var(--muted);
+  border:1px solid var(--border);
+  padding:6px 10px;border-radius:10px;
+}
+.nivel__back:hover{color:var(--ink)}
+.nivel__timer{
+  font-variant-numeric: tabular-nums;
+  font-weight:700;
+  background: #fff;
+  border:1px solid var(--border);
+  padding:6px 10px;border-radius:10px;
+  min-width:64px;text-align:center;
+}
+
+.nivel__meta{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap:10px;
+  margin-bottom:16px;
+}
+.meta__item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 12px;
+}
+.meta__item--best{opacity:.85}
+.meta__label{display:block;color:var(--muted);font-size:.78rem}
+.meta__value{font-weight:700}
+
+.card{
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 0 rgba(2,6,23,.04), 0 6px 22px rgba(2,6,23,.06);
+}
+.card + .card{margin-top:16px}
+.card__title{margin:0 0 8px;font-size:1.1rem}
+.card__subtitle{margin:0 0 6px;color:var(--muted);font-weight:600}
+.card__desc{margin:0 0 12px}
+.card__tips{margin:6px 0 14px 18px}
+.card__tips li{margin:4px 0;color:var(--muted)}
+
+.btn{
+  appearance:none;border:1px solid var(--border);background:#fff;color:var(--ink);
+  padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;
+}
+.btn--primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+
+.card--play .problem{
+  font-size:1.15rem;
+  background:#fafafa;border:1px dashed var(--border);border-radius:12px;padding:12px;margin:4px 0 12px;
+}
+.choices{
+  display:grid;grid-template-columns: repeat(4, 1fr);
+  gap:10px;margin:6px 0 6px;
+}
+.choice{
+  font-size:1.35rem;font-weight:800;
+  padding:12px 0;border-radius:14px;cursor:pointer;
+  border:1px solid var(--border);background:#fff;
+}
+.choice:hover{outline:2px solid #e5edff}
+.choice.is-correct{
+  background: #ecfdf5;border-color:#86efac;color:#065f46;
+}
+.choice.is-wrong{
+  background:#fef2f2;border-color:#fecaca;color:#7f1d1d;
+}
+
+.feedback{min-height:20px;color:var(--muted);margin:6px 0 4px}
+.feedback--ok{color:var(--success);font-weight:700}
+.feedback--bad{color:var(--danger);font-weight:700}
+
+.progress{
+  height:10px;border-radius:999px;background:#eef2ff;border:1px solid #e2e8ff;overflow:hidden
+}
+.progress__bar{
+  height:100%;width:0;background:linear-gradient(90deg, #60a5fa, #2563eb);
+  transition:width .2s ease;
+}
+
+.end__stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 14px
+}
+.end__stats > div{
+  border:1px solid var(--border);border-radius:12px;padding:10px;background:#fff;text-align:center
+}
+.end__actions{display:flex;gap:10px;flex-wrap:wrap}
+
+.is-hidden{display:none}

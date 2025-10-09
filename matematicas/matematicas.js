@@ -71,115 +71,118 @@
         texts: 'Operaciones'
       }
     },
-
-    
-{
-  id: 'n3',
-  title: 'Nivel 3 · Multiplicación',
-  subtitle: 'Enteros y decimales positivos; sin negativos.',
-  rule: 'Apruebas con 1 acierto en 1:00.',
-  time: '1:00',
-  route: './n3/n3.html',   // <-- importante
-  enabled: true,           // <-- de false a true
-  details: {
-    obj: 'Agilizar productos básicos.',
-    dyn: 'Multiplicaciones decimal×entero o decimal×decimal (sin entero×entero).',
-    texts: 'Operaciones'
-  }
-},
-
-
-
-{
-  id: 'n4',
-  title: 'Nivel 4 · División',
-  subtitle: 'Enteros y decimales; resultados exactos.',
-  rule: 'Apruebas con 2 aciertos en 1:00.',
-  time: '1:00',
-  route: './n4/n4.html',   // ← importante: apunta al archivo que creaste
-  enabled: true,           // ← esto activa el botón
-  details: {
-    obj: 'Agilidad en divisiones exactas.',
-    dyn: 'Variedad: con/sin decimales en ambos o uno solo.',
-    texts: 'Operaciones'
-  }
-},
-
-
-
-{
-  id: 'n5',
-  title: 'Nivel 5 · Potenciación',
-  subtitle: 'Exponentes positivos hasta 4. Sumas y productos sencillos.',
-  rule: 'Apruebas con 3 aciertos en 1:00.',
-  time: '1:00',
-  route: './n5/n5.html',
-  enabled: true,
-  details: {
-    obj: 'Manejar potencias pequeñas mentalmente.',
-    dyn: 'Ítems de potencia simple, suma y producto.',
-    texts: 'Operaciones'
-  }
-},
-{
-  id: 'n6',
-  title: 'Nivel 6 · Notación científica',
-  subtitle: 'Convierte entre decimal y científica (modo estricto opcional).',
-  rule: 'Apruebas con 3 aciertos en 1:00.',
-  time: '1:00',
-  route: './n6/n6.html',
-  enabled: true,
-  details: {
-    obj: 'Comprender y practicar la notación científica.',
-    dyn: 'Conversiones decimal↔científica con equivalencias válidas.',
-    texts: 'Números reales'
-  }
-},
-
-
-{
-  id: 'n7',
-  title: 'Nivel 7 · Fracciones: simplificar',
-  subtitle: 'Reduce a la mínima expresión.',
-  rule: 'Apruebas con 4 aciertos en 1:00.',
-  time: '1:00',
-  route: './n7/n7.html',   // ← RUTA AL HTML DEL NIVEL (desde matematicas.html)
-  enabled: true,           // ← ESTO ACTIVA EL BOTÓN "Inicio"
-  details: {
-    obj: 'Reducir fracciones a su forma irreducible.',
-    dyn: 'Respuesta en formato a/b; signo en el numerador.',
-    texts: 'Operaciones'
-  }
-},
-   
-{
-  id: 'n8',
-  title: 'Nivel 8 · Decimal ↔ Fracción',
-  subtitle: 'Convierte entre decimal finito y fracción irreducible.',
-  rule: 'Apruebas con 2 aciertos en 1:00.',
-  time: '1:00',
-  route: './n8/n8.html',   // ← ruta al HTML del nivel (desde matematicas.html)
-  enabled: true,           // ← esto activa el botón "Inicio"
-  details: {
-    obj: 'Reconocer y convertir decimales finitos a fracciones irreducibles y viceversa.',
-    dyn: 'Escribe "a/b" para fracción o un decimal con punto/coma. Se acepta equivalencia exacta; signo en el numerador y denominador positivo.',
-    texts: 'Equivalencias'
-  }
-}
-  
+    {
+      id: 'n3',
+      title: 'Nivel 3 · Multiplicación',
+      subtitle: 'Enteros y decimales positivos; sin negativos.',
+      rule: 'Apruebas con 1 acierto en 1:00.',
+      time: '1:00',
+      route: './n3/n3.html',
+      enabled: true,
+      details: {
+        obj: 'Agilizar productos básicos.',
+        dyn: 'Multiplicaciones decimal×entero o decimal×decimal (sin entero×entero).',
+        texts: 'Operaciones'
+      }
+    },
+    {
+      id: 'n4',
+      title: 'Nivel 4 · División',
+      subtitle: 'Enteros y decimales; resultados exactos.',
+      rule: 'Apruebas con 2 aciertos en 1:00.',
+      time: '1:00',
+      route: './n4/n4.html',
+      enabled: true,
+      details: {
+        obj: 'Agilidad en divisiones exactas.',
+        dyn: 'Variedad: con/sin decimales en ambos o uno solo.',
+        texts: 'Operaciones'
+      }
+    },
+    {
+      id: 'n5',
+      title: 'Nivel 5 · Potenciación',
+      subtitle: 'Exponentes positivos hasta 4. Sumas y productos sencillos.',
+      rule: 'Apruebas con 3 aciertos en 1:00.',
+      time: '1:00',
+      route: './n5/n5.html',
+      enabled: true,
+      details: {
+        obj: 'Manejar potencias pequeñas mentalmente.',
+        dyn: 'Ítems de potencia simple, suma y producto.',
+        texts: 'Operaciones'
+      }
+    },
+    {
+      id: 'n6',
+      title: 'Nivel 6 · Notación científica',
+      subtitle: 'Convierte entre decimal y científica (modo estricto opcional).',
+      rule: 'Apruebas con 3 aciertos en 1:00.',
+      time: '1:00',
+      route: './n6/n6.html',
+      enabled: true,
+      details: {
+        obj: 'Comprender y practicar la notación científica.',
+        dyn: 'Conversiones decimal↔científica con equivalencias válidas.',
+        texts: 'Números reales'
+      }
+    },
+    {
+      id: 'n7',
+      title: 'Nivel 7 · Fracciones: simplificar',
+      subtitle: 'Reduce a la mínima expresión.',
+      rule: 'Apruebas con 4 aciertos en 1:00.',
+      time: '1:00',
+      route: './n7/n7.html',
+      enabled: true,
+      details: {
+        obj: 'Reducir fracciones a su forma irreducible.',
+        dyn: 'Respuesta en formato a/b; signo en el numerador.',
+        texts: 'Operaciones'
+      }
+    },
+    {
+      id: 'n8',
+      title: 'Nivel 8 · Decimal ↔ Fracción',
+      subtitle: 'Convierte entre decimal finito y fracción irreducible.',
+      rule: 'Apruebas con 2 aciertos en 1:00.',
+      time: '1:00',
+      route: './n8/n8.html',
+      enabled: true,
+      details: {
+        obj: 'Reconocer y convertir decimales finitos a fracciones irreducibles y viceversa.',
+        dyn: 'Escribe "a/b" para fracción o un decimal con punto/coma. Se acepta equivalencia exacta; signo en el numerador y denominador positivo.',
+        texts: 'Equivalencias'
+      }
+    },
+    {
+      id: 'n9',
+      title: 'Nivel 9 · Elegir la operación',
+      subtitle: 'Decide si es +, −, × o ÷ según el enunciado.',
+      rule: 'Apruebas con 11 aciertos en 1:00.',
+      time: '1:00',
+      route: './n9/n9.html',
+      enabled: true,
+      details: {
+        obj: 'Inferir la operación adecuada en contextos cotidianos (IR · Evidencia 1.2).',
+        dyn: 'Ítems de respuesta única con 4 botones (+, −, ×, ÷), feedback inmediato y avance automático.',
+        texts: 'Operaciones'
+      }
+    }
   ]);
 
   // Mapa Firestore (canónico + legacy)
-const FS_IDS = Object.freeze({
-  n1: ['math_n1', 'math_l1'],
-  n2: ['math_n2', 'math_l2'],
-  n3: ['math_n3', 'math_l3'],
-  n4: ['math_n4', 'math_l4'],
-  n5: ['math_n5', 'math_l5'],
-  n6: ['math_n6', 'math_l6'],
-  n7: ['math_n7', 'math_l7'],
-  n8: ['math_n8', 'math_l8'],   // ← añade esta línea
-});
+  const FS_IDS = Object.freeze({
+    n1: ['math_n1', 'math_l1'],
+    n2: ['math_n2', 'math_l2'],
+    n3: ['math_n3', 'math_l3'],
+    n4: ['math_n4', 'math_l4'],
+    n5: ['math_n5', 'math_l5'],
+    n6: ['math_n6', 'math_l6'],
+    n7: ['math_n7', 'math_l7'],
+    n8: ['math_n8', 'math_l8'],
+    n9: ['math_n9', 'math_l9'],
+  });
 
   // ------- Persistencia local -------
   const STORAGE_PREFIX = 'lx_math_record_';
@@ -333,7 +336,10 @@ const FS_IDS = Object.freeze({
     }
   }
 
-  function refreshAll() { ['n1','n2','n3','n4'].forEach(id => refreshCard(id)); }
+  // 👉 AHORA refresca dinámicamente todos los niveles definidos
+  function refreshAll() {
+    LEVELS.forEach(({ id }) => refreshCard(id));
+  }
 
   // ------- Chip "Mis puntos" -------
   function ensurePointsChip() {
@@ -414,7 +420,7 @@ const FS_IDS = Object.freeze({
     if (window.LX?.subscribeLeaderboard && !unsubLB) unsubLB = await startLeaderboard();
   });
 
-  // Refrescar al terminar un nivel
+  // Refrescar al terminar un nivel (evento externo de LX)
   window.addEventListener('lx-progress-updated', (ev) => {
     const { levelId } = ev.detail || {};
     for (const cardId of Object.keys(FS_IDS)) {

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nivel 9 · Elegir la operación</title>
+
+  <!-- Estilos compartidos del módulo de matemáticas -->
+  <link rel="stylesheet" href="../matematicas.css">
+  <!-- Estilos específicos del nivel -->
+  <link rel="stylesheet" href="./n9.css">
+</head>
+<body>
+  <!-- Servicios (Firebase + helpers) y cabecera en modo módulo -->
+  <script type="module" src="../../servicios/auth.js"></script>
+  <script type="module" src="../../cabecera.js"></script>
+
+  <main class="nivel">
+    <header class="nivel__topbar">
+      <a class="nivel__back" href="../matematicas.html" aria-label="Volver">← Volver</a>
+      <h1 class="nivel__title">Nivel 9 • Elegir la operación</h1>
+      <div class="nivel__timer" id="timer">1:00</div>
+    </header>
+
+    <section class="nivel__meta">
+      <div class="meta__item">
+        <span class="meta__label">Aciertos</span>
+        <span class="meta__value" id="hits">0</span>
+      </div>
+      <div class="meta__item">
+        <span class="meta__label">Precisión</span>
+        <span class="meta__value" id="accuracy">0%</span>
+      </div>
+      <div class="meta__item">
+        <span class="meta__label">APM</span>
+        <span class="meta__value" id="apm">0.00</span>
+      </div>
+      <div class="meta__item meta__item--best">
+        <span class="meta__label">Mejor APM</span>
+        <span class="meta__value" id="bestApm">—</span>
+      </div>
+      <div class="meta__item meta__item--best">
+        <span class="meta__label">Mejor Prec.</span>
+        <span class="meta__value" id="bestAcc">—</span>
+      </div>
+    </section>
+
+    <section class="card" id="startCard">
+      <h2 class="card__title">Objetivo</h2>
+      <p class="card__desc">
+        Dado un enunciado corto, <strong>elige</strong> la operación adecuada:
+        <em>suma, resta, multiplicación o división</em>.
+      </p>
+
+      <ul class="card__tips">
+        <li>Tiempo total: <strong>1:00</strong></li>
+        <li>Apruebas con <strong>11 aciertos</strong></li>
+        <li>Feedback inmediato, avance automático.</li>
+      </ul>
+
+      <button id="btnStart" class="btn btn--primary">Iniciar</button>
+    </section>
+
+    <section class="card card--play is-hidden" id="playCard" aria-live="polite">
+      <h2 class="card__subtitle">¿Qué operación se debe usar?</h2>
+      <div class="problem" id="problemText">—</div>
+
+      <div class="choices">
+        <button class="choice" data-op="+">+</button>
+        <button class="choice" data-op="-">−</button>
+        <button class="choice" data-op="*">×</button>
+        <button class="choice" data-op="/">÷</button>
+      </div>
+
+      <div class="feedback" id="feedback"> </div>
+      <div class="progress">
+        <div id="progressBar" class="progress__bar"></div>
+      </div>
+    </section>
+
+    <section class="card card--end is-hidden" id="endCard">
+      <h2 class="card__title">Resultado</h2>
+      <p id="endSummary" class="card__desc"></p>
+
+      <div class="end__stats">
+        <div><span>Aciertos</span><strong id="endHits">0</strong></div>
+        <div><span>Precisión</span><strong id="endAcc">0%</strong></div>
+        <div><span>APM</span><strong id="endApm">0.00</strong></div>
+      </div>
+
+      <div class="end__actions">
+        <a class="btn" href="../matematicas.html">Salir</a>
+        <button id="btnRetry" class="btn btn--primary">Reintentar</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lógica del nivel (no usa imports) -->
+  <script src="./n9.js"></script>
+</body>
+</html>
