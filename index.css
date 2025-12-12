@@ -330,7 +330,28 @@ body {
   font-weight: 600;
 }
 
-/* RESPONSIVE */
+/* ====== PIE DE PÁGINA ====== */
+.site-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  margin-top: 2.5rem;
+  padding: 1.5rem 0 2.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.site-footer .footer-brand span {
+  font-weight: 600;
+  color: #111827;
+}
+
+.site-footer .footer-text {
+  margin-top: 0.35rem;
+  line-height: 1.4;
+}
+
+/* ====== RESPONSIVE ====== */
 @media (max-width: 900px) {
   .topbar {
     flex-wrap: wrap;
@@ -347,5 +368,66 @@ body {
 
   .modules {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Layout cuadriculado de la cabecera en móvil pequeño */
+@media (max-width: 640px) {
+  .page-shell {
+    padding: 12px;
+  }
+
+  .topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "brand session"
+      "nav   session";
+    column-gap: 0.75rem;
+    row-gap: 0.5rem;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border-radius: 1.75rem; /* menos 'pastilla', más cuadriculado */
+  }
+
+  .topbar-left {
+    grid-area: brand;
+  }
+
+  .top-nav {
+    grid-area: nav;
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .topbar-right {
+    grid-area: session;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+
+  .session-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  .topbar .btn-primary {
+    padding-inline: 0.9rem;
+    padding-block: 0.4rem;
+    font-size: 0.8rem;
+    border-radius: 999px;
+    max-width: 11rem;
+    width: 100%;
+  }
+
+  .nav-pill {
+    padding-inline: 0.7rem;
+    padding-block: 0.35rem;
+    font-size: 0.8rem;
   }
 }

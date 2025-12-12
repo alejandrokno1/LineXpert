@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <title>LineXpert · Procesos de Pensamiento</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
+
   <link rel="stylesheet" href="./index.css?v=3">
 </head>
 <body>
   <div class="page-shell">
     <!-- BARRA SUPERIOR -->
     <header class="topbar">
+      <!-- Marca -->
       <div class="topbar-left">
         <div class="brand-logo">
           <span class="brand-emoji">🧠</span>
@@ -21,11 +22,13 @@
         </div>
       </div>
 
-      <nav class="top-nav">
+      <!-- Tabs principales -->
+      <nav class="top-nav" aria-label="Áreas de práctica">
         <button class="nav-pill nav-pill--active" type="button">Lectura</button>
         <button class="nav-pill" type="button">Matemáticas</button>
       </nav>
 
+      <!-- Estado de sesión -->
       <div class="topbar-right">
         <span class="session-label">
           Sesión: <strong class="session-status">anónima</strong>
@@ -108,9 +111,18 @@
         </aside>
       </section>
     </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="site-footer">
+      <p class="footer-brand">
+        © 2025 <span>LineXpert</span>
+      </p>
+      <p class="footer-text">
+        Beta · Plataforma para practicar procesos de pensamiento en Lectura y Matemáticas.
+      </p>
+    </footer>
   </div>
 
-  
   <script defer src="./index.js?v=3"></script>
 </body>
 </html>
