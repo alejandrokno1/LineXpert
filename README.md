@@ -1,342 +1,259 @@
-# LineXpert · Procesos de Pensamiento
+# LineXpert · Procesos de Pensamiento (Beta)
 
-Plataforma web para practicar **Matemáticas** y **Lectura Crítica** con actividades guiadas tipo ICFES.
-
-Actualmente es una página **estática** (HTML + CSS + JS) publicada con GitHub Pages.  
-Más adelante se integrará autenticación y guardado de progreso (Firebase u otro backend ligero).
+LineXpert es una plataforma web estática (HTML/CSS/JS) para practicar **Procesos de Pensamiento** con módulos por área (Lectura / Matemáticas) y niveles (n1, n2, …, n30).
+El objetivo es crecer por niveles, guardando progreso y mostrando estado (Aprobado / No aprobado).
 
 ---
 
-## 🌐 Demo
+## Demo y repositorio
 
-> 🔗 **Producción:** `https://alejandrokno1.github.io/LineXpert/`  
-> (portada principal con tarjetas de Matemáticas, Lectura y módulos futuros)
+Demo (GitHub Pages):
+https://alejandrokno1.github.io/LineXpert/
 
----
-
-## 🏗 Estructura actual del proyecto (v1)
-
-En la raíz del repositorio:
-
-- `index.html`  
-  Página principal con:
-  - barra superior (logo LineXpert + “Beta”, pestañas Lectura / Matemáticas, estado de sesión y botón *Entrar / Registrarse*),
-  - sección “Bienvenido a Procesos de Pensamiento”,
-  - cuadrícula 2×2 de módulos:
-    - **Matemáticas** (activo),
-    - **Lectura** (activo),
-    - **Pensamiento Lógico** (próximamente),
-    - **Conocimientos Policiales** (próximamente),
-  - tarjeta lateral de **Actualizaciones**.
-
-- `index.css`  
-  Estilos de la portada:
-  - layout con topbar redondeada y *glassmorphism*,
-  - gradientes de fondo,
-  - tarjetas con sombras y bordes redondeados,
-  - diseño responsive (ajuste a una columna en pantallas pequeñas).
-
-- `index.js`  
-  Lógica básica:
-  - lectura (opcional) del nombre de usuario desde `localStorage` para mostrar “Hola, Invitado 👋” o el nombre guardado,
-  - carga de la lista de **Actualizaciones** desde un arreglo de JS,
-  - placeholder para el botón *Entrar / Registrarse* (en el futuro abrirá la pantalla de autenticación).
-
-> Nota técnica: en producción se recomienda versionar los assets estáticos para evitar problemas de caché:
-> `index.css?v=1`, `index.js?v=1`.
+Repositorio:
+https://github.com/alejandrokno1/LineXpert
 
 ---
 
-## 🧠 Visión general del proyecto
-
-La idea de LineXpert es ofrecer prácticas cortas, cronometradas y con retroalimentación para:
-
-- **Matemáticas:** razonamiento cuantitativo tipo Saber 11 / Saber Pro.
-- **Lectura:** comprensión lectora, análisis de textos, reflexión y evaluación crítica.
-
-Cada área se organizará en **niveles** con:
-- objetivo claro,
-- duración (por ejemplo, 60 segundos),
-- métricas como **aciertos**, **APM (aciertos por minuto)** y **precisión**,
-- alineación con las **competencias y evidencias oficiales** de los lineamientos ICFES.
-
----
-
-## 📚 Diseño de niveles de Lectura (versión 1)
-
-La subprueba de Lectura se estructura a partir de las tres afirmaciones del ICFES:
-
-1. **Identifica y entiende los contenidos locales que conforman un texto.**  
-2. **Comprende cómo se articulan las partes de un texto para darle un sentido global.**  
-3. **Reflexiona a partir de un texto y evalúa su contenido.**
-
-Además, se consideran los tipos de texto usados en Lectura Crítica:
-
-- **Continuos:** novela, cuento, poesía, canción, dramaturgia; ensayo, columna de opinión, crónica, etc.
-- **Discontinuos:** caricatura, cómic, etiqueta, infografía, tabla, diagrama, aviso publicitario, manual, reglamento, etc.
-
-Sobre esta base se diseñó un plan de **30 niveles** distribuidos en tres bloques:
-
----
-
-### 🔹 Bloque A (Niveles 1–10)  
-**Afirmación 1 – Contenidos locales**  
-Enfocado en identificar significados, referencias y eventos explícitos.
-
-Ejemplos de niveles:
-
-1. **Palabras clave en oraciones**  
-   - Evidencia 1.1: significado de elementos locales.  
-
-2. **Sinónimos y expresiones equivalentes**  
-   - Parafraseo de palabras/expresiones dentro de oraciones simples.  
-
-3. **Referentes (“él”, “ella”, “eso”)**  
-   - Localizar a qué se refieren pronombres y expresiones deícticas.  
-
-4. **Información explícita: qué, quién, dónde, cuándo**  
-   - Preguntas literales sobre datos concretos del texto.  
-
-5. **Eventos y personajes en textos narrativos (continuos literarios)**  
-   - Identificación de sucesos y personajes en cuentos breves.  
-
-6. **Eventos en textos informativos**  
-   - Noticias, crónicas cortas, relatos de experiencias.  
-
-7. **Orden temporal de los sucesos**  
-   - Organizar eventos (antes/después) según lo narrado.  
-
-8. **¿Qué pasa en la caricatura o el cómic?** (discontinuos literarios)  
-   - Reconocer qué ocurre y quiénes participan combinando imagen + texto.  
-
-9. **Localizar detalles específicos**  
-   - Búsqueda de datos puntuales en textos breves (continuos o discontinuos).  
-
-10. **Integrador local**  
-    - Mezcla de cuento breve, noticia, caricatura, aviso, aplicando 1.1–1.2.
-
----
-
-### 🔹 Bloque B (Niveles 11–20)  
-**Afirmación 2 – Sentido global y articulación de partes**  
-
-Incluye evidencias 2.1–2.5: estructura, voces, relaciones entre partes, ideas principales y manejo de textos discontinuos.
-
-Ejemplos de niveles:
-
-11. **Partes de un texto continuo**  
-    - Título, subtítulos, párrafos; función de cada parte (2.1).
-
-12. **Estructura narrativa: inicio, nudo, desenlace**  
-    - En cuentos breves (2.1).
-
-13. **Título, imágenes y paratextos**  
-    - Relación entre elementos paratextuales y el contenido central (2.1, 2.5).
-
-14. **Voces en textos literarios**  
-    - Diferenciar narrador, personajes, diálogos (2.2).
-
-15. **Voces y fuentes en textos informativos**  
-    - Reconocer quién habla: autor, entrevistado, experto, testigo (2.2).
-
-16. **Conectores y relaciones lógicas I**  
-    - Causa, consecuencia, contraste, adición (2.3).
-
-17. **Coherencia entre párrafos**  
-    - Orden lógico de ideas, ejemplos que corresponden a explicaciones (2.3, 2.4).
-
-18. **Ideas principales vs. secundarias**  
-    - Textos expositivos breves (2.4).
-
-19. **Tablas, gráficos e infografías** (textos discontinuos informativos)  
-    - Interpretar relaciones entre columnas, filas, ejes, íconos, etc. (2.5).
-
-20. **Integrador de sentido global**  
-    - Textos mixtos (párrafo + tabla/gráfico) con uso de 2.1–2.5.
-
----
-
-### 🔹 Bloque C (Niveles 21–30)  
-**Afirmación 3 – Reflexión y evaluación crítica**  
-
-Trabaja evidencias 3.1–3.5: validez de argumentos, supuestos, relaciones con otros textos, contenido valorativo, estrategias discursivas y contextualización.
-
-Ejemplos de niveles:
-
-21. **Tesis y argumentos**  
-    - Identificar idea defendida y razones que la sustentan (3.1).
-
-22. **Hechos, opiniones y ejemplos**  
-    - Distinguir enunciados descriptivos, valorativos y ejemplificadores (3.1, 3.3).
-
-23. **Supuestos e implicaciones**  
-    - Reconocer lo que se da por sentado y lo que se deriva del texto (3.1).
-
-24. **Texto y experiencia del lector**  
-    - Relacionar contenidos con conocimientos previos y contexto (3.2, 3.5).
-
-25. **Comparar dos textos sobre el mismo tema**  
-    - Identificar acuerdos, desacuerdos y matices (3.2).
-
-26. **Lenguaje valorativo y tono**  
-    - Detectar juicios, ironía, sarcasmo, entusiasmo, etc. (3.3).
-
-27. **Estrategias discursivas y persuasivas**  
-    - Exageración, preguntas retóricas, analogías, etc. (3.4).
-
-28. **Recursos persuasivos en textos discontinuos**  
-    - Avisos publicitarios, afiches, campañas (3.3, 3.4).
-
-29. **Contexto de producción y circulación**  
-    - Quién escribe, para quién, en qué medio/momento, y cómo eso afecta la lectura (3.5).
-
-30. **Integrador crítico**  
-    - Textos mixtos con componente argumentativo, aplicando 3.1–3.5.
-
----
-
-## 🛣 Roadmap (qué se tiene y qué sigue)
-
-### ✅ Hecho
-
-- Limpieza completa del repositorio anterior.
-- Nueva portada principal (`index.html`, `index.css`, `index.js`).
-- Diseño pedagógico preliminar de **30 niveles de Lectura** alineados con las afirmaciones y evidencias ICFES.
-
-### 🔜 Próximos pasos
-
-1. **Crear la página de Lectura (`lectura.html`)**  
-   - Reutilizar la estética de la portada.  
-   - Mostrar un grid con los 30 niveles (nombre, afirmación, tipo de texto).  
-   - Preparar estructura para métricas: tiempo, aciertos, APM, precisión.
-
-2. **Definir estructura de datos para los niveles**  
-   - Archivo JS/JSON del tipo:
-     ```js
-     const nivelesLectura = [
-       {
-         id: 1,
-         bloque: "A",
-         nombre: "Palabras clave en oraciones",
-         afirmacion: 1,
-         evidencias: ["1.1"],
-         duracion_s: 60,
-         objetivo: "Identificar el significado de palabras clave en una oración sencilla usando el contexto.",
-       },
-       // ...
-     ];
-     ```
-
-3. **Implementar lógica de práctica para Lectura**  
-   - Cargar textos y preguntas tipo ICFES por nivel.  
-   - Temporizador + cálculo de aciertos, APM y precisión.  
-   - Retroalimentación básica al finalizar la sesión.
-
-4. **Diseñar sección de Matemáticas**  
-   - Estructura similar de niveles y métricas, pero para razonamiento cuantitativo.
-
-5. **Integración de autenticación y guardado de progreso**  
-   - Probablemente con Firebase (Auth + Firestore):  
-     - registro/inicio de sesión,  
-     - almacenamiento de puntajes por nivel,  
-     - panel de progreso del usuario.
-
----
-
-## 🧪 Cómo ejecutar el proyecto localmente
-
-1. Clonar el repositorio:
-
-   ```bash
-   git clone https://github.com/alejandrokno1/LineXpert.git
-   cd LineXpert
-
-
-
-
-# LineXpert (Beta)
-
-Plataforma web estática (HTML/CSS/JS) para practicar **Procesos de Pensamiento** con módulos por área (Lectura / Matemáticas) y niveles (n1, n2, ...).  
-Se publica en **GitHub Pages**.
-
----
-
-## Estado actual
+## Estado actual (lo que ya funciona)
 
 ✅ Home (`index.html`)
-- Navbar con tabs (Lectura / Matemáticas).
-- Card de “Actualizaciones” alimentada desde `updates.js`.
+- Tabs superiores (Lectura / Matemáticas).
 - Cards de módulos (Lectura y Matemáticas).
-- Saludo de usuario desde `localStorage` (`lx_nombre` opcional).
+- Card “Actualizaciones” se carga desde `updates.js` (sin hardcode).
+- Saludo/estado de sesión desde `localStorage` (clave opcional: `lx_nombre`).
 
 ✅ Módulo Lectura (`/Lectura/`)
-- Página principal de Lectura: `/Lectura/lectura.html`
-- Muestra niveles como “cards” (estado, reglas, puntaje).
-- Por ahora se implementó el nivel **n1** con un quiz real.
+- Página principal: `/Lectura/lectura.html`
+- Render de niveles en “cards”: se trata de, reglas, puntuación, estado.
 
-✅ Nivel n1 (Lectura)
+✅ Nivel n1 (Lectura) - Quiz real
 - Ruta: `/Lectura/niveles/n1/n1.html`
-- Reglas: 5 preguntas, 60 segundos, +20 por correcta, sin penalización.
-- Resultado: puntaje, aprobado/no aprobado, correctas, mejor puntaje.
-- Banco de preguntas en `n1banco.js`.
+- Reglas: **5 preguntas**, **60 segundos**, **+20 por correcta**, **0 por incorrecta**, aprueba desde **70/100**.
+- Banco: `n1banco.js` (usa `window.LX_N1_BANK`).
+- Guarda mejor puntaje e info de intentos en `localStorage`.
 
 ---
 
-## Arquitectura / Estructura del proyecto
+## Arquitectura de carpetas
 
+> Importante: GitHub Pages es **case-sensitive** (respeta mayúsculas/minúsculas).  
+> Ej: `Lectura/` NO es lo mismo que `lectura/`.
+
+### Estructura futura completa (30 niveles por módulo)
+
+Regla: cada nivel nX vive en `/niveles/nX/` y tiene 4 archivos:
+- `nX.html`, `nX.css`, `nX.js`, `nXbanco.js`
+
+```
 LineXpert/
-index.html
-index.css
-index.js
-updates.js
+  index.html
+  index.css
+  index.js
+  updates.js
 
-Lectura/
-lectura.html
-lectura.css
-lectura.js
-niveles/
-n1/
-n1.html
-n1.css
-n1.js
-n1banco.js
-n2/ (pendiente)
-n3/ (pendiente)
+  Lectura/
+    lectura.html
+    lectura.css
+    lectura.js
+    niveles/
+      n1/ ... n30/
 
-
-
-> Nota: GitHub Pages es **case-sensitive**, respeta mayúsculas/minúsculas en rutas (ej. `Lectura/`).
+  Matematicas/
+    matematicas.html
+    matematicas.css
+    matematicas.js
+    niveles/
+      n1/ ... n30/
+```
 
 ---
 
-## ¿Cómo funciona la sección "Actualizaciones"?
+## Plan pedagógico: 30 niveles de Lectura (qué trae cada nivel)
 
-- Archivo: `updates.js`
-- Contiene `window.LX_UPDATES = [...]`
-- La Home lee esas actualizaciones desde `index.js` y las renderiza.
+> Objetivo general: avanzar de **comprensión literal → inferencial → crítica → síntesis**, con formatos tipo ICFES.
+> Cada nivel tendrá su carpeta: `Lectura/niveles/nX/` con `nX.html`, `nX.css`, `nX.js`, `nXbanco.js`.
 
-⚠️ Caché en GitHub Pages:
-- Para forzar que los cambios se vean, aumenta el `?v=` en el `<script src="updates.js?v=...">` dentro de `index.html`.
+### Reglas sugeridas (base)
+- Niveles n1–n10: 5 preguntas · 60s · +20 correcta · 0 incorrecta · aprueba 70/100
+- Niveles n11–n20: 6–8 preguntas · 90–120s · puntaje proporcional · aprueba 70/100
+- Niveles n21–n30: 8–12 preguntas (o simulacros) · 2–12 min · aprueba 70/100
+
+> Nota: estas reglas se pueden ajustar por nivel sin romper la estructura.
 
 ---
 
-## ¿Cómo funciona el almacenamiento de progreso?
+### n1 · Comprensión literal (detalle explícito)
+- En qué consiste: ubicar información textual exacta (qué, quién, cuándo, dónde).
+- Ítems: 5 preguntas de “dato literal”.
 
-Se guarda en `localStorage`.  
-Para Lectura n1 se usan estas claves:
+### n2 · Vocabulario en contexto (sinónimos)
+- En qué consiste: elegir el sinónimo correcto según el contexto.
+- Ítems: palabras resaltadas + opción equivalente.
 
-- Mejor puntaje:
-  - `lx_lectura_n1_best`
-- Último puntaje:
-  - `lx_lectura_n1_last`
-- Intentos:
-  - `lx_lectura_n1_attempts`
-- Fecha del último intento:
-  - `lx_lectura_n1_lastDate`
-- Número de correctas del último intento:
-  - `lx_lectura_n1_lastCorrect`
+### n3 · Vocabulario en contexto (antónimos / oposición)
+- En qué consiste: identificar la palabra/expresión opuesta según el contexto.
+- Ítems: antónimos y contrastes.
 
-Ejemplo rápido para probar:
-```js
-localStorage.setItem("lx_lectura_n1_best", "80");
-location.reload();
+### n4 · Referencias (pronombres y sustituciones)
+- En qué consiste: a quién/qué se refiere “él”, “ella”, “esto”, “aquello”, “dicho”.
+- Ítems: preguntas de antecedente.
+
+### n5 · Conectores y relaciones (básico)
+- En qué consiste: interpretar “porque, aunque, sin embargo, por lo tanto”.
+- Ítems: escoger el conector correcto o la relación que expresa.
+
+### n6 · Idea principal (oración temática)
+- En qué consiste: identificar el tema o idea central de un párrafo.
+- Ítems: “¿de qué trata principalmente…?”
+
+### n7 · Ideas secundarias / soporte
+- En qué consiste: reconocer ejemplos, datos y detalles que apoyan la idea principal.
+- Ítems: “¿qué enunciado apoya mejor…?”
+
+### n8 · Secuencia / orden temporal
+- En qué consiste: ordenar eventos o reconocer “antes/después/luego”.
+- Ítems: cronología.
+
+### n9 · Causa y efecto (directo)
+- En qué consiste: identificar causa explícita y consecuencia explícita.
+- Ítems: “¿qué provocó…?” “¿qué ocurrió como resultado?”
+
+### n10 · Comparación y contraste
+- En qué consiste: hallar semejanzas/diferencias entre dos enunciados o párrafos.
+- Ítems: “se parecen en…” “difieren en…”
+
+---
+
+### n11 · Propósito comunicativo
+- En qué consiste: para qué se escribió (informar, persuadir, narrar, instruir).
+- Ítems: intención del texto.
+
+### n12 · Tono y actitud del autor
+- En qué consiste: reconocer tono (crítico, neutral, irónico, entusiasta, etc.).
+- Ítems: selección de tono + evidencia breve.
+
+### n13 · Punto de vista / narrador
+- En qué consiste: primera/tercera persona, narrador testigo, omnisciente, etc.
+- Ítems: identificar voz narrativa.
+
+### n14 · Inferencia simple (implícitos directos)
+- En qué consiste: deducir algo no dicho literalmente, pero evidente por pistas.
+- Ítems: “se puede concluir que…”
+
+### n15 · Inferencia con evidencia (citar la frase)
+- En qué consiste: escoger la conclusión y la evidencia textual que la sustenta.
+- Ítems: conclusión + “¿qué frase lo apoya?”
+
+### n16 · Predicción / consecuencia probable
+- En qué consiste: anticipar qué pasaría si continúa el texto (con lógica del texto).
+- Ítems: escenarios consistentes.
+
+### n17 · Relaciones lógicas (condición, concesión, finalidad)
+- En qué consiste: interpretar estructuras “si…, entonces…”, “aunque…”, “para…”.
+- Ítems: identificar tipo de relación.
+
+### n18 · Coherencia local (oración intrusa)
+- En qué consiste: detectar una oración que “no encaja” en un párrafo.
+- Ítems: cohesión/coherencia inmediata.
+
+### n19 · Coherencia global (estructura del texto)
+- En qué consiste: reconocer introducción, desarrollo, conclusión, y el rol de cada parte.
+- Ítems: “¿qué función cumple este párrafo?”
+
+### n20 · Título y resumen (precisión)
+- En qué consiste: elegir el mejor título y/o el mejor resumen sin agregar información.
+- Ítems: selección de título/resumen.
+
+---
+
+### n21 · Identificar tesis/afirmación (argumentación)
+- En qué consiste: ubicar la idea defendida (tesis/posición).
+- Ítems: “¿cuál es la tesis?”
+
+### n22 · Razones y evidencias (argumentación)
+- En qué consiste: distinguir razón vs ejemplo vs evidencia.
+- Ítems: soporte argumentativo.
+
+### n23 · Supuestos / implicaciones
+- En qué consiste: qué debe ser cierto para que el argumento funcione.
+- Ítems: supuestos.
+
+### n24 · Contraargumento y refutación
+- En qué consiste: identificar objeciones y cómo responderlas con base en el texto.
+- Ítems: “¿qué refuta mejor…?”
+
+### n25 · Falacias comunes (introducción)
+- En qué consiste: reconocer errores típicos (generalización, falsa causa, ad hominem, etc.).
+- Ítems: escoger la descripción del error.
+
+### n26 · Credibilidad de la fuente (lectura crítica)
+- En qué consiste: evaluar si la fuente es confiable y por qué (datos, sesgo, evidencia).
+- Ítems: criterios básicos de confiabilidad.
+
+### n27 · Recursos retóricos (metáfora, ironía, hipérbole)
+- En qué consiste: identificar recursos y su efecto en el lector.
+- Ítems: “¿qué recurso usa…?” “¿qué efecto produce?”
+
+### n28 · Lectura multimodal (texto + tabla/gráfico)
+- En qué consiste: integrar información textual con una tabla o gráfico simple.
+- Ítems: preguntas combinadas.
+
+### n29 · Síntesis entre dos textos (comparativa)
+- En qué consiste: comparar dos textos sobre el mismo tema: acuerdos, diferencias, propósito.
+- Ítems: síntesis de dos fuentes.
+
+### n30 · Simulacro (mixto)
+- En qué consiste: mezcla de habilidades n1–n29 (literal, inferencial, crítica, multimodal).
+- Ítems: 15–20 preguntas · tiempo mayor · reporte final (puntaje + áreas a mejorar).
+
+---
+
+## Sección “Actualizaciones” (Home)
+
+Archivo: `updates.js`
+- Contiene: `window.LX_UPDATES = [...]`
+- `index.js` lee `window.LX_UPDATES` y renderiza el `<ul id="updates-list">`.
+
+Nota caché: si no se ve en producción, aumenta el `?v=` en `index.html`.
+
+---
+
+## Progreso / puntajes (localStorage)
+
+Usuario:
+- `lx_nombre` (opcional)
+
+Convención recomendada para Lectura:
+- `lx_lectura_nX_best`, `lx_lectura_nX_last`, `lx_lectura_nX_attempts`, `lx_lectura_nX_lastDate`, `lx_lectura_nX_lastCorrect`
+
+Convención recomendada para Matemáticas:
+- `lx_mate_nX_best`, `lx_mate_nX_last`, `lx_mate_nX_attempts`, `lx_mate_nX_lastDate`, `lx_mate_nX_lastCorrect`
+
+---
+
+## Cómo ejecutar localmente
+
+Opción A: VS Code + Live Server  
+Opción B:
+```bash
+python -m http.server 5500
+```
+Abrir: http://localhost:5500/
+
+---
+
+## Cómo publicar cambios (Git)
+
+```bash
+git status
+git add .
+git commit -m "Mensaje claro del cambio"
+git push origin main
+```
+
+Si hay conflicto:
+```bash
+git pull --rebase origin main
+git push origin main
+```
