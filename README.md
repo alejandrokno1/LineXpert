@@ -250,3 +250,93 @@ Ejemplos de niveles:
    ```bash
    git clone https://github.com/alejandrokno1/LineXpert.git
    cd LineXpert
+
+
+
+
+# LineXpert (Beta)
+
+Plataforma web estática (HTML/CSS/JS) para practicar **Procesos de Pensamiento** con módulos por área (Lectura / Matemáticas) y niveles (n1, n2, ...).  
+Se publica en **GitHub Pages**.
+
+---
+
+## Estado actual
+
+✅ Home (`index.html`)
+- Navbar con tabs (Lectura / Matemáticas).
+- Card de “Actualizaciones” alimentada desde `updates.js`.
+- Cards de módulos (Lectura y Matemáticas).
+- Saludo de usuario desde `localStorage` (`lx_nombre` opcional).
+
+✅ Módulo Lectura (`/Lectura/`)
+- Página principal de Lectura: `/Lectura/lectura.html`
+- Muestra niveles como “cards” (estado, reglas, puntaje).
+- Por ahora se implementó el nivel **n1** con un quiz real.
+
+✅ Nivel n1 (Lectura)
+- Ruta: `/Lectura/niveles/n1/n1.html`
+- Reglas: 5 preguntas, 60 segundos, +20 por correcta, sin penalización.
+- Resultado: puntaje, aprobado/no aprobado, correctas, mejor puntaje.
+- Banco de preguntas en `n1banco.js`.
+
+---
+
+## Arquitectura / Estructura del proyecto
+
+LineXpert/
+index.html
+index.css
+index.js
+updates.js
+
+Lectura/
+lectura.html
+lectura.css
+lectura.js
+niveles/
+n1/
+n1.html
+n1.css
+n1.js
+n1banco.js
+n2/ (pendiente)
+n3/ (pendiente)
+
+
+
+> Nota: GitHub Pages es **case-sensitive**, respeta mayúsculas/minúsculas en rutas (ej. `Lectura/`).
+
+---
+
+## ¿Cómo funciona la sección "Actualizaciones"?
+
+- Archivo: `updates.js`
+- Contiene `window.LX_UPDATES = [...]`
+- La Home lee esas actualizaciones desde `index.js` y las renderiza.
+
+⚠️ Caché en GitHub Pages:
+- Para forzar que los cambios se vean, aumenta el `?v=` en el `<script src="updates.js?v=...">` dentro de `index.html`.
+
+---
+
+## ¿Cómo funciona el almacenamiento de progreso?
+
+Se guarda en `localStorage`.  
+Para Lectura n1 se usan estas claves:
+
+- Mejor puntaje:
+  - `lx_lectura_n1_best`
+- Último puntaje:
+  - `lx_lectura_n1_last`
+- Intentos:
+  - `lx_lectura_n1_attempts`
+- Fecha del último intento:
+  - `lx_lectura_n1_lastDate`
+- Número de correctas del último intento:
+  - `lx_lectura_n1_lastCorrect`
+
+Ejemplo rápido para probar:
+```js
+localStorage.setItem("lx_lectura_n1_best", "80");
+location.reload();

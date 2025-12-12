@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>LineXpert · Lectura</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS global (viene desde la raíz) -->
+  <link rel="stylesheet" href="../index.css?v=3" />
+  <!-- CSS del módulo Lectura -->
+  <link rel="stylesheet" href="./lectura.css?v=1" />
+</head>
+
+<body>
+  <div class="page-shell">
+    <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+      <!-- Marca (vuelve al inicio) -->
+      <div class="topbar-left">
+        <a href="../index.html" class="brand-link" aria-label="Volver al inicio">
+          <div class="brand-logo">
+            <span class="brand-emoji">🧠</span>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">LineXpert</span>
+            <span class="brand-badge">Beta</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Tabs principales -->
+      <nav class="top-nav" aria-label="Áreas de práctica">
+        <a class="nav-pill nav-pill--active" href="./lectura.html">Lectura</a>
+        <a class="nav-pill nav-pill--disabled" href="#" id="nav-math">Matemáticas</a>
+      </nav>
+
+      <!-- Estado de sesión -->
+      <div class="topbar-right">
+        <span class="session-label">
+          Sesión: <strong class="session-status">anónima</strong>
+        </span>
+        <button id="btn-auth" class="btn btn-primary" type="button">
+          Entrar / Registrarse
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="main-layout">
+      <!-- HERO -->
+      <section class="hero hero--lectura">
+        <p class="hero-kicker">Módulo</p>
+        <h1 class="hero-title">Lectura</h1>
+        <p class="hero-subtitle">
+          Niveles cortos con reglas claras, puntaje y estado de aprobación.
+        </p>
+        <p class="hero-greeting">
+          Hola, <span id="hero-name">Invitado</span> 👋
+        </p>
+      </section>
+
+      <!-- NIVELES -->
+      <section class="levels">
+        <div class="levels-head">
+          <h2 class="levels-title">Niveles</h2>
+          <p class="levels-subtitle">Empieza por n1. Los demás los activamos cuando tú quieras.</p>
+        </div>
+
+        <div id="levels-grid" class="levels-grid">
+          <!-- Se rellena desde lectura.js -->
+        </div>
+      </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="site-footer">
+      <p class="footer-brand">
+        © 2025 <span>LineXpert</span>
+      </p>
+      <p class="footer-text">
+        Beta · Plataforma para practicar procesos de pensamiento en Lectura y Matemáticas.
+      </p>
+    </footer>
+  </div>
+
+  <script defer src="./lectura.js?v=1"></script>
+</body>
+</html>

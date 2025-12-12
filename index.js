@@ -6,49 +6,92 @@ const heroNameSpan = document.getElementById("hero-name");
 const sessionStatusSpan = document.querySelector(".session-status");
 
 const displayName = storedName || "Invitado";
-heroNameSpan.textContent = displayName;
-sessionStatusSpan.textContent = storedName ? displayName : "anónima";
+if (heroNameSpan) heroNameSpan.textContent = displayName;
+if (sessionStatusSpan) sessionStatusSpan.textContent = storedName ? displayName : "anónima";
 
-// 2) Lista de actualizaciones (puedes mover esto luego a un JSON)
-const updates = [
-  {
-    fecha: "21 ago 2025",
-    descripcion:
-      "Portada con título 3D, cuadrícula 2×2 y barra lateral de novedades.",
-  },
-  {
-    fecha: "15 ago 2025",
-    descripcion: "Optimización de estilos y rendimiento.",
-  },
-  {
-    fecha: "01 ago 2025",
-    descripcion:
-      "Lanzamiento beta de Matemáticas y Lectura.",
-  },
-];
+// =====================
+// 2) Actualizaciones (desde updates.js)
+// =====================
+function formatDateES(iso) {
+  // iso esperado: "YYYY-MM-DD"
+  if (!iso) return "";
+  const parts = iso.split("-");
+  if (parts.length !== 3) return iso;
 
-// 3) Renderizar actualizaciones en la tarjeta derecha
-const updatesList = document.getElementById("updates-list");
+  const y = Number(parts[0]);
+  const m = Number(parts[1]);
+  const d = Number(parts[2]);
 
-updates.forEach((u) => {
-  const li = document.createElement("li");
-  li.className = "update-item";
+  const meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  if (!y || !m || !d || m < 1 || m > 12) return iso;
 
-  const bullet = document.createElement("div");
-  bullet.className = "update-bullet";
+  // Ej: "21 ago 2025"
+  return `${String(d).padStart(2, "0")} ${meses[m - 1]} ${y}`;
+}
 
-  const textWrapper = document.createElement("div");
-  textWrapper.className = "update-text";
-  textWrapper.innerHTML = `<strong>${u.fecha}</strong> — ${u.descripcion}`;
+function renderUpdatesFromWindow() {
+  const updatesList = document.getElementById("updates-list");
+  if (!updatesList) return;
 
-  li.appendChild(bullet);
-  li.appendChild(textWrapper);
+  // Limpia primero
+  updatesList.innerHTML = "";
 
-  updatesList.appendChild(li);
-});
+  // Lee desde updates.js
+  const updates = Array.isArray(window.LX_UPDATES) ? window.LX_UPDATES.slice() : [];
 
-// 4) Botón de autenticación (placeholder)
+  // Si no cargó updates.js o está vacío
+  if (updates.length === 0) {
+    const li = document.createElement("li");
+    li.className = "update-item";
+
+    const bullet = document.createElement("div");
+    bullet.className = "update-bullet";
+
+    const textWrapper = document.createElement("div");
+    textWrapper.className = "update-text";
+    textWrapper.innerHTML = `<strong>Sin novedades</strong> — Aún no hay actualizaciones.`;
+
+    li.appendChild(bullet);
+    li.appendChild(textWrapper);
+    updatesList.appendChild(li);
+    return;
+  }
+
+  // Ordena por fecha descendente (más reciente arriba)
+  updates.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+  // Renderiza (máximo 6)
+  updates.slice(0, 6).forEach((u) => {
+    const li = document.createElement("li");
+    li.className = "update-item";
+
+    const bullet = document.createElement("div");
+    bullet.className = "update-bullet";
+
+    const textWrapper = document.createElement("div");
+    textWrapper.className = "update-text";
+
+    const fecha = formatDateES(u.date);
+    const desc = u.text || "";
+
+    textWrapper.innerHTML = `<strong>${fecha}</strong> — ${desc}`;
+
+    li.appendChild(bullet);
+    li.appendChild(textWrapper);
+
+    updatesList.appendChild(li);
+  });
+}
+
+// Renderiza actualizaciones
+renderUpdatesFromWindow();
+
+// =====================
+// 3) Botón de autenticación (placeholder)
+// =====================
 const authBtn = document.getElementById("btn-auth");
-authBtn.addEventListener("click", () => {
-  alert("Aquí irá la pantalla de inicio de sesión / registro más adelante 🙂");
-});
+if (authBtn) {
+  authBtn.addEventListener("click", () => {
+    alert("Aquí irá la pantalla de inicio de sesión / registro más adelante 🙂");
+  });
+}

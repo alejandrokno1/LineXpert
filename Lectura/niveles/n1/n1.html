@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>LineXpert · Lectura · n1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Global -->
+  <link rel="stylesheet" href="../../../index.css?v=3" />
+  <!-- Estilos del módulo Lectura (opcional pero recomendado) -->
+  <link rel="stylesheet" href="../../lectura.css?v=1" />
+  <!-- Estilos específicos del nivel -->
+  <link rel="stylesheet" href="./n1.css?v=1" />
+</head>
+
+<body>
+  <div class="page-shell">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="../../../index.html" class="brand-link" aria-label="Volver al inicio">
+          <div class="brand-logo"><span class="brand-emoji">🧠</span></div>
+          <div class="brand-text">
+            <span class="brand-name">LineXpert</span>
+            <span class="brand-badge">Beta</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="top-nav" aria-label="Áreas de práctica">
+        <a class="nav-pill nav-pill--active" href="../../lectura.html">Lectura</a>
+        <a class="nav-pill nav-pill--disabled" href="#" id="nav-math">Matemáticas</a>
+      </nav>
+
+      <div class="topbar-right">
+        <span class="session-label">
+          Sesión: <strong class="session-status">anónima</strong>
+        </span>
+        <button id="btn-auth" class="btn btn-primary" type="button">Entrar / Registrarse</button>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main-layout">
+      <section class="hero hero--n1">
+        <p class="hero-kicker">Nivel</p>
+        <h1 class="hero-title">n1 · Comprensión literal</h1>
+        <p class="hero-subtitle">Lee con atención: responde sobre información explícita.</p>
+        <p class="hero-greeting">Hola, <span id="hero-name">Invitado</span> 👋</p>
+      </section>
+
+      <!-- INTRO -->
+      <section id="screen-intro" class="card">
+        <h2 class="card-title">Reglas del nivel</h2>
+
+        <div class="rules-grid">
+          <div class="rule-pill"><strong>Preguntas:</strong> 5</div>
+          <div class="rule-pill"><strong>Tiempo total:</strong> 60s</div>
+          <div class="rule-pill"><strong>Correcta:</strong> +20 pts</div>
+          <div class="rule-pill"><strong>Incorrecta:</strong> +0 pts</div>
+          <div class="rule-pill"><strong>Aprueba desde:</strong> 70/100</div>
+        </div>
+
+        <p class="card-note">
+          Consejo: no adivines “intenciones”, responde solo con lo que el texto dice.
+        </p>
+
+        <div class="card-actions">
+          <a class="btn btn-dark" href="../../lectura.html">Volver</a>
+          <button id="btn-start" class="btn btn-primary" type="button">Iniciar</button>
+        </div>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="screen-quiz" class="card is-hidden" aria-live="polite">
+        <div class="quiz-top">
+          <div class="quiz-meta">
+            <span id="q-progress" class="pill">Pregunta 1/5</span>
+            <span id="q-score" class="pill">Puntaje: 0</span>
+          </div>
+          <div class="quiz-timer">
+            <span class="timer-label">Tiempo</span>
+            <span id="q-timer" class="timer">01:00</span>
+          </div>
+        </div>
+
+        <div class="q-body">
+          <div class="q-textbox">
+            <p class="q-text-label">Texto</p>
+            <p id="q-text" class="q-text"></p>
+          </div>
+
+          <h2 id="q-question" class="q-question"></h2>
+
+          <div id="q-choices" class="choices" role="list"></div>
+
+          <div id="q-feedback" class="feedback is-hidden"></div>
+        </div>
+
+        <div class="card-actions">
+          <button id="btn-quit" class="btn btn-dark" type="button">Salir</button>
+          <button id="btn-next" class="btn btn-primary" type="button" disabled>Siguiente</button>
+        </div>
+      </section>
+
+      <!-- RESULT -->
+      <section id="screen-result" class="card is-hidden">
+        <h2 class="card-title">Resultado</h2>
+
+        <div class="result-grid">
+          <div class="result-box">
+            <div class="result-k">Puntaje</div>
+            <div id="r-score" class="result-v">0/100</div>
+          </div>
+          <div class="result-box">
+            <div class="result-k">Estado</div>
+            <div id="r-status" class="result-v">No aprobado</div>
+          </div>
+          <div class="result-box">
+            <div class="result-k">Correctas</div>
+            <div id="r-correct" class="result-v">0/5</div>
+          </div>
+          <div class="result-box">
+            <div class="result-k">Mejor puntaje</div>
+            <div id="r-best" class="result-v">0/100</div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <a class="btn btn-dark" href="../../lectura.html">Volver a Lectura</a>
+          <button id="btn-retry" class="btn btn-primary" type="button">Reintentar</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-brand">© 2025 <span>LineXpert</span></p>
+      <p class="footer-text">Beta · Nivel n1 de Lectura.</p>
+    </footer>
+  </div>
+
+  <!-- Banco primero, luego lógica -->
+  <script defer src="./n1banco.js?v=1"></script>
+  <script defer src="./n1.js?v=1"></script>
+</body>
+</html>
