@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LineXpert · Lectura · Nivel n2</title>
+  <link rel="stylesheet" href="./n2.css?v=1" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-emoji">🧠</span>
+      <div class="brand-txt">
+        <div class="brand-name">LineXpert</div>
+        <div class="brand-sub">Lectura · Nivel n2</div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <a class="btn btn--ghost" href="../../lectura.html">← Volver</a>
+      <div class="level-best">
+        <span class="muted">Mejor n2:</span>
+        <span id="level-best-badge" class="badge badge--muted">0/100</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Selector -->
+    <section id="view-selector" class="view">
+      <div class="panel">
+        <h1>Nivel n2 · Sinónimos y equivalencias</h1>
+        <p class="muted">
+          Lee un texto y luego responde 5 preguntas de equivalencia:
+          sinónimos, conectores equivalentes y reemplazos sin cambiar el sentido.
+        </p>
+
+        <div class="pill-row">
+          <span class="pill">Tiempo lectura: <b>60s</b></span>
+          <span class="pill">Preguntas: <b>5</b></span>
+          <span class="pill">Mín. palabras: <b>250</b></span>
+          <span class="pill">Meta: <b>70/100</b></span>
+        </div>
+      </div>
+
+      <div id="contexts-grid" class="grid"></div>
+    </section>
+
+    <!-- Lectura -->
+    <section id="view-reading" class="view hidden">
+      <div class="panel">
+        <div class="reading-head">
+          <div>
+            <h2 id="reading-title">Contexto</h2>
+            <div class="muted small">
+              ID: <b id="ctx-id-label">—</b> · Palabras: <b id="ctx-words-label">—</b>
+            </div>
+          </div>
+
+          <div class="timerbox">
+            <div class="muted small">Tiempo</div>
+            <div id="timer" class="timer">01:00</div>
+            <button id="btn-finish-reading" class="btn btn--accent" type="button">Terminar</button>
+          </div>
+        </div>
+
+        <div id="ctx-text" class="reading-text"></div>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section id="view-quiz" class="view hidden">
+      <div class="panel">
+        <div class="quiz-head">
+          <div>
+            <h2>Preguntas n2</h2>
+            <div class="muted small">Contexto: <b id="quiz-ctx-label">—</b></div>
+          </div>
+          <div class="quiz-actions">
+            <button id="btn-back-selector" class="btn btn--ghost" type="button">← Elegir otro</button>
+          </div>
+        </div>
+
+        <div id="questions" class="questions"></div>
+
+        <div class="quiz-footer">
+          <button id="btn-submit" class="btn btn--dark" type="button">Calificar</button>
+          <button id="btn-reset" class="btn btn--ghost" type="button">Borrar progreso</button>
+        </div>
+
+        <div id="result" class="result hidden"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Banco primero -->
+  <script src="./n2banco.js?v=1"></script>
+  <script src="./n2.js?v=1"></script>
+</body>
+</html>

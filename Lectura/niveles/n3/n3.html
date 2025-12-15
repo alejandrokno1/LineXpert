@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LineXpert · Lectura · Nivel n3</title>
+  <link rel="stylesheet" href="./n3.css?v=1" />
+</head>
+<body>
+
+  <header class="top">
+    <div class="top-left">
+      <a class="back" href="../../lectura.html">← Volver</a>
+      <div class="title">
+        <h1>Nivel n3 · Vocabulario en contexto</h1>
+        <p>Antónimos / oposición (según el contexto del texto).</p>
+      </div>
+    </div>
+
+    <div class="top-right">
+      <span class="pill">Mejor nivel: <b id="level-best-badge">0/100</b></span>
+      <button id="btn-reset" class="btn btn--ghost" type="button">Reiniciar n3</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- SELECTOR -->
+    <section id="view-selector" class="view">
+      <h2>Elige un contexto</h2>
+      <p class="muted">Lee 60s (mínimo 250 palabras). Luego respondes 5 preguntas de oposición.</p>
+      <div id="contexts-grid" class="grid"></div>
+    </section>
+
+    <!-- LECTURA -->
+    <section id="view-reading" class="view hidden">
+      <div class="reading-head">
+        <div>
+          <h2 id="reading-title">Contexto</h2>
+          <div class="meta-row">
+            <span class="pill">ID: <b id="ctx-id-label"></b></span>
+            <span class="pill">Palabras: <b id="ctx-words-label"></b></span>
+          </div>
+        </div>
+
+        <div class="timer-box">
+          <div class="timer-label">Tiempo</div>
+          <div id="timer" class="timer">01:00</div>
+          <button id="btn-finish-reading" class="btn btn--accent" type="button">Terminar lectura</button>
+          <div class="hint muted">Se habilita después de 15s (o cuando el tiempo llegue a 0).</div>
+        </div>
+      </div>
+
+      <article class="text-card">
+        <pre id="ctx-text" class="text"></pre>
+      </article>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="view-quiz" class="view hidden">
+      <div class="quiz-head">
+        <h2>Preguntas (contexto <span id="quiz-ctx-label"></span>)</h2>
+        <button id="btn-back-selector" class="btn btn--ghost" type="button">← Volver a contextos</button>
+      </div>
+
+      <div id="questions" class="questions"></div>
+
+      <div class="actions">
+        <button id="btn-submit" class="btn btn--dark" type="button">Calificar</button>
+      </div>
+
+      <div id="result" class="result hidden"></div>
+    </section>
+
+  </main>
+
+  <script src="./n3banco.js?v=1"></script>
+  <script src="./n3.js?v=1"></script>
+</body>
+</html>

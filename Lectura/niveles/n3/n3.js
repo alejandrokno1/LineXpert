@@ -1,28 +1,21 @@
-// n1.js
+// n3.js
 (function () {
   "use strict";
 
-  // ============================
-  // Config
-  // ============================
   const PASS_SCORE = 70;
   const MAX_SCORE = 100;
   const TIME_SECONDS = 60;
   const QUESTIONS_COUNT = 5;
   const MIN_WORDS = 250;
-  const SCORE_PER_QUESTION = Math.round(MAX_SCORE / QUESTIONS_COUNT);
 
-  // ============================
-  // Datos
-  // ============================
-  const contexts = Array.isArray(window.N1_CONTEXTS) ? window.N1_CONTEXTS : [];
+  const MIN_READING_SECONDS_BEFORE_FINISH = 15;
 
-  // ============================
+  const contexts = Array.isArray(window.N3_CONTEXTS) ? window.N3_CONTEXTS : [];
+
   // DOM
-  // ============================
   const viewSelector = document.getElementById("view-selector");
-  const viewReading  = document.getElementById("view-reading");
-  const viewQuiz     = document.getElementById("view-quiz");
+  const viewReading = document.getElementById("view-reading");
+  const viewQuiz = document.getElementById("view-quiz");
 
   const contextsGrid = document.getElementById("contexts-grid");
   const levelBestBadge = document.getElementById("level-best-badge");
@@ -43,73 +36,51 @@
   const resultEl = document.getElementById("result");
   const btnReset = document.getElementById("btn-reset");
 
-  // ============================
   // Estado
-  // ============================
   let currentCtx = null;
   let remaining = TIME_SECONDS;
   let timerHandle = null;
   let hasGraded = false;
+  let finishing = false;
 
-  // Cache de wordCount por id
   const wordCountCache = new Map();
 
-  // ============================
-  // Helpers storage
-  // ============================
+  // Storage keys
+  const keyCtxBest = (ctxId) => `lx_lectura_n3_${ctxId}_best`;
+  const keyLevelBest = () => `lx_lectura_n3_best`;
+
   function getNumber(key, fallback = 0) {
     const raw = localStorage.getItem(key);
     const val = Number(raw);
     return Number.isFinite(val) ? val : fallback;
   }
-
   function setNumber(key, value) {
     localStorage.setItem(key, String(value));
   }
 
-  function keyCtxBest(ctxId) {
-    return `lx_lectura_n1_${ctxId}_best`;
-  }
-
-  function keyLevelBest() {
-    return `lx_lectura_n1_best`;
-  }
-
-  // ============================
-  // Word count (robusto)
-  // ============================
+  // Word count robusto
   function computeWords(text) {
     const s = String(text || "")
-      .replace(/\u00A0/g, " ")               // NBSP -> espacio normal
-      .replace(/[\u200B-\u200D\uFEFF]/g, "") // zero-width
+      .replace(/\u00A0/g, " ")
+      .replace(/[\u200B-\u200D\uFEFF]/g, "")
       .trim();
-
     if (!s) return 0;
-
-    // Preferimos Unicode property escapes (cuenta palabras reales)
     try {
       const m = s.match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)?/gu);
       return m ? m.length : 0;
     } catch {
-      // Fallback compatible
       return s.split(/\s+/).filter(Boolean).length;
     }
   }
-
   function getWordCountFor(ctx) {
     const id = String(ctx?.id || "");
     if (!id) return computeWords(ctx?.text);
-
     if (wordCountCache.has(id)) return wordCountCache.get(id);
-
     const wc = computeWords(ctx?.text);
     wordCountCache.set(id, wc);
     return wc;
   }
 
-  // ============================
-  // UI helpers
-  // ============================
   function mmss(seconds) {
     const s = Math.max(0, seconds);
     const m = Math.floor(s / 60);
@@ -122,6 +93,8 @@
       if (!v) return;
       v.classList.toggle("hidden", v !== viewEl);
     });
+    try { window.scrollTo({ top: 0, behavior: "smooth" }); }
+    catch { window.scrollTo(0, 0); }
   }
 
   function escapeHtml(str) {
@@ -136,7 +109,6 @@
   function statusLabel(best) {
     return best >= PASS_SCORE ? "Aprobado" : "No aprobado";
   }
-
   function statusClass(best) {
     return best >= PASS_SCORE ? "badge--ok" : "badge--no";
   }
@@ -147,22 +119,36 @@
     levelBestBadge.textContent = `${best}/${MAX_SCORE}`;
   }
 
-  // ============================
+  function clearQuizUI() {
+    if (questionsEl) questionsEl.innerHTML = "";
+    if (resultEl) {
+      resultEl.classList.add("hidden");
+      resultEl.innerHTML = "";
+    }
+    if (btnSubmit) btnSubmit.disabled = false;
+    hasGraded = false;
+  }
+
+  function setFinishButtonState() {
+    if (!btnFinishReading) return;
+    const elapsed = TIME_SECONDS - remaining;
+    const canFinish = elapsed >= MIN_READING_SECONDS_BEFORE_FINISH;
+    btnFinishReading.disabled = !canFinish;
+    btnFinishReading.title = canFinish
+      ? ""
+      : `Espera ${Math.max(0, MIN_READING_SECONDS_BEFORE_FINISH - elapsed)}s para terminar.`;
+  }
+
   // Render selector
-  // ============================
   function renderSelector() {
     if (!contextsGrid) return;
-
     contextsGrid.innerHTML = "";
 
     if (!contexts.length) {
       contextsGrid.innerHTML = `
         <div class="result">
           <b>No hay contextos cargados.</b>
-          <div class="small muted">
-            Revisa que <code>n1banco.js</code> se esté cargando antes que <code>n1.js</code>
-            y que defina <code>window.N1_CONTEXTS</code>.
-          </div>
+          <div class="muted small">Revisa que n3banco.js cargue antes que n3.js y defina window.N3_CONTEXTS.</div>
         </div>`;
       return;
     }
@@ -180,13 +166,11 @@
           <span class="badge">${escapeHtml(ctx.id)}</span>
           <span class="badge ${statusClass(best)}">${statusLabel(best)}</span>
           <span class="badge badge--muted">Mejor: ${best}/${MAX_SCORE}</span>
-          <span class="badge ${okMinWords ? "badge--ok" : "badge--no"}">
-            Palabras: ${words} / ${MIN_WORDS}
-          </span>
+          <span class="badge ${okMinWords ? "badge--ok" : "badge--no"}">Palabras: ${words} / ${MIN_WORDS}</span>
         </div>
 
         <h3>${escapeHtml(ctx.title)}</h3>
-        <p class="meta">Texto + 5 preguntas literales (qué / quién / cuándo / dónde / dato exacto).</p>
+        <p class="meta">Antónimos / oposición en contexto (elige la opción opuesta según el texto).</p>
 
         <div class="row">
           <button class="btn btn--accent" type="button" data-start="${escapeHtml(ctx.id)}" ${okMinWords ? "" : "disabled"}>
@@ -199,18 +183,22 @@
     });
   }
 
-  // ============================
-  // Flujo lectura → quiz
-  // ============================
+  function stopTimer() {
+    if (timerHandle) {
+      clearInterval(timerHandle);
+      timerHandle = null;
+    }
+  }
+
   function startReading(ctx) {
     stopTimer();
+    finishing = false;
     hasGraded = false;
     currentCtx = ctx;
 
     remaining = TIME_SECONDS;
     if (timerEl) timerEl.textContent = mmss(remaining);
 
-    // Render lectura
     if (readingTitle) readingTitle.textContent = ctx.title || "";
     if (ctxIdLabel) ctxIdLabel.textContent = ctx.id || "";
 
@@ -219,29 +207,36 @@
 
     if (ctxTextEl) ctxTextEl.textContent = ctx.text || "";
 
+    clearQuizUI();
     show(viewReading);
+
+    setFinishButtonState();
 
     timerHandle = setInterval(() => {
       remaining -= 1;
       if (timerEl) timerEl.textContent = mmss(remaining);
-
-      if (remaining <= 0) {
-        finishReading();
-      }
+      setFinishButtonState();
+      if (remaining <= 0) finishReading(true);
     }, 1000);
   }
 
-  function finishReading() {
-    stopTimer();
+  function finishReading(force = false) {
+    if (finishing) return;
     if (!currentCtx) return;
 
-    // Bloquear el texto (que no quede visible mientras contestan)
+    if (!force) {
+      const elapsed = TIME_SECONDS - remaining;
+      if (elapsed < MIN_READING_SECONDS_BEFORE_FINISH) return;
+    }
+
+    finishing = true;
+    stopTimer();
+
     if (ctxTextEl) ctxTextEl.textContent = "";
 
     if (quizCtxLabel) quizCtxLabel.textContent = currentCtx.id || "";
     renderQuestions(currentCtx);
 
-    // Reset resultado
     if (resultEl) {
       resultEl.classList.add("hidden");
       resultEl.innerHTML = "";
@@ -251,51 +246,56 @@
     show(viewQuiz);
   }
 
-  function stopTimer() {
-    if (timerHandle) {
-      clearInterval(timerHandle);
-      timerHandle = null;
-    }
-  }
-
-  // ============================
-  // Quiz
-  // ============================
   function renderQuestions(ctx) {
     if (!questionsEl) return;
-
     questionsEl.innerHTML = "";
-    const qs = Array.isArray(ctx.questions) ? ctx.questions.slice(0, QUESTIONS_COUNT) : [];
+
+    const qs = Array.isArray(ctx?.questions) ? ctx.questions.slice(0, QUESTIONS_COUNT) : [];
 
     if (qs.length !== QUESTIONS_COUNT) {
       questionsEl.innerHTML = `
         <div class="result">
-          <b>Falta configurar preguntas.</b>
-          <div class="small muted">Este contexto no tiene exactamente ${QUESTIONS_COUNT} preguntas. Revisa n1banco.js</div>
+          <b>Faltan preguntas.</b>
+          <div class="muted small">Este contexto no tiene exactamente ${QUESTIONS_COUNT} preguntas.</div>
         </div>`;
       if (btnSubmit) btnSubmit.disabled = true;
       return;
+    }
+
+    // Validación básica
+    for (const item of qs) {
+      const opts = Array.isArray(item?.options) ? item.options : [];
+      if (opts.length < 2 || !Number.isInteger(item?.correct)) {
+        questionsEl.innerHTML = `
+          <div class="result">
+            <b>Preguntas mal configuradas.</b>
+            <div class="muted small">Cada pregunta debe tener options (>=2) y correct (índice).</div>
+          </div>`;
+        if (btnSubmit) btnSubmit.disabled = true;
+        return;
+      }
     }
 
     qs.forEach((item, i) => {
       const box = document.createElement("div");
       box.className = "qbox";
 
-      const opts = (item.options || []).map((opt, j) => {
-        const id = `q${i}_o${j}`;
-        return `
-          <label class="opt" for="${id}">
-            <input type="radio" name="q${i}" id="${id}" value="${j}">
-            <span>${escapeHtml(opt)}</span>
-          </label>
-        `;
-      }).join("");
+      const optsHtml = (item.options || [])
+        .map((opt, j) => {
+          const id = `q${i}_o${j}`;
+          return `
+            <label class="opt" for="${id}">
+              <input type="radio" name="q${i}" id="${id}" value="${j}">
+              <span>${escapeHtml(opt)}</span>
+            </label>
+          `;
+        })
+        .join("");
 
       box.innerHTML = `
         <h4>${i + 1}. ${escapeHtml(item.q)}</h4>
-        <div>${opts}</div>
+        <div>${optsHtml}</div>
       `;
-
       questionsEl.appendChild(box);
     });
   }
@@ -303,7 +303,7 @@
   function grade() {
     if (!currentCtx || hasGraded) return;
 
-    const qs = Array.isArray(currentCtx.questions) ? currentCtx.questions.slice(0, QUESTIONS_COUNT) : [];
+    const qs = Array.isArray(currentCtx?.questions) ? currentCtx.questions.slice(0, QUESTIONS_COUNT) : [];
     if (qs.length !== QUESTIONS_COUNT) return;
 
     let correctCount = 0;
@@ -314,22 +314,22 @@
       if (Number.isFinite(val) && val === q.correct) correctCount += 1;
     });
 
-    const score = correctCount * SCORE_PER_QUESTION;
+    const score = Math.round((correctCount / QUESTIONS_COUNT) * MAX_SCORE);
 
-    // Guardar mejor por contexto
+    // best por contexto
     const ctxBestKey = keyCtxBest(currentCtx.id);
     const prevCtxBest = getNumber(ctxBestKey, 0);
     if (score > prevCtxBest) setNumber(ctxBestKey, score);
 
-    // Guardar mejor del nivel n1 (para lectura.html)
+    // best del nivel
     const prevLevelBest = getNumber(keyLevelBest(), 0);
     if (score > prevLevelBest) setNumber(keyLevelBest(), score);
 
     updateLevelBestBadge();
     renderSelector();
 
-    // UI resultado
     const passed = score >= PASS_SCORE;
+
     if (resultEl) {
       resultEl.classList.remove("hidden");
       resultEl.innerHTML = `
@@ -338,8 +338,8 @@
           <span class="badge">Correctas: <b>${correctCount}/${QUESTIONS_COUNT}</b></span>
           <span class="badge">Puntaje: <b>${score}/${MAX_SCORE}</b></span>
         </div>
-        <div class="small muted">
-          Literal = información explícita del texto. Si quieres mejorar, repite el mismo contexto.
+        <div class="muted small">
+          Recuerda: no es “antónimo de diccionario” siempre, sino la opción que se opone <b>en esa frase</b>.
         </div>
       `;
     }
@@ -348,25 +348,16 @@
     if (btnSubmit) btnSubmit.disabled = true;
   }
 
-  // ============================
-  // Reset
-  // ============================
-  function resetN1() {
-    contexts.forEach((ctx) => {
-      localStorage.removeItem(keyCtxBest(ctx.id));
-    });
+  function resetN3() {
+    contexts.forEach((ctx) => localStorage.removeItem(keyCtxBest(ctx.id)));
     localStorage.removeItem(keyLevelBest());
-
     updateLevelBestBadge();
     renderSelector();
-    alert("Progreso de n1 borrado (solo en este navegador).");
+    alert("Progreso de n3 borrado (solo en este navegador).");
   }
 
-  // ============================
   // Eventos
-  // ============================
   if (contextsGrid) {
-    // Event delegation para los botones "Iniciar"
     contextsGrid.addEventListener("click", (e) => {
       const btn = e.target?.closest?.("button[data-start]");
       if (!btn || btn.disabled) return;
@@ -376,38 +367,38 @@
       if (!ctx) return;
 
       const words = getWordCountFor(ctx);
-      if (words < MIN_WORDS) return; // doble seguridad
+      if (words < MIN_WORDS) return;
 
       startReading(ctx);
     });
   }
 
-  if (btnFinishReading) btnFinishReading.addEventListener("click", finishReading);
+  if (btnFinishReading) btnFinishReading.addEventListener("click", () => finishReading(false));
   if (btnSubmit) btnSubmit.addEventListener("click", grade);
 
   if (btnBackSelector) {
     btnBackSelector.addEventListener("click", () => {
       stopTimer();
+      finishing = false;
       currentCtx = null;
-      hasGraded = false;
+      remaining = TIME_SECONDS;
+
+      if (ctxTextEl) ctxTextEl.textContent = "";
+      if (readingTitle) readingTitle.textContent = "";
+      if (ctxIdLabel) ctxIdLabel.textContent = "";
+      if (ctxWordsLabel) ctxWordsLabel.textContent = "";
+      if (quizCtxLabel) quizCtxLabel.textContent = "";
+
+      clearQuizUI();
       show(viewSelector);
     });
   }
 
-  if (btnReset) btnReset.addEventListener("click", resetN1);
+  if (btnReset) btnReset.addEventListener("click", resetN3);
 
-  // ============================
-  // Init
-  // ============================
   function init() {
-    // Aviso de contextos inválidos (por consola)
     const invalid = contexts.filter((c) => getWordCountFor(c) < MIN_WORDS);
-    if (invalid.length) {
-      console.warn(
-        `Contextos con menos de ${MIN_WORDS} palabras:`,
-        invalid.map((x) => x.id)
-      );
-    }
+    if (invalid.length) console.warn(`Contextos n3 < ${MIN_WORDS} palabras:`, invalid.map((x) => x.id));
 
     updateLevelBestBadge();
     renderSelector();
