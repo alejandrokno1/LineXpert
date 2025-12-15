@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>LineXpert · Razonamiento Lógico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Estilos globales del sitio (ajusta la ruta si tu index.css está en otra carpeta) -->
+  <link rel="stylesheet" href="../index.css?v=1" />
+  <!-- Estilos específicos del módulo -->
+  <link rel="stylesheet" href="./razonamiento.css?v=1" />
+</head>
+
+<body>
+  <div class="page-shell">
+    <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="brand-logo">
+          <span class="brand-emoji">🧠</span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">LineXpert</span>
+          <span class="brand-badge">Beta</span>
+        </div>
+      </div>
+
+      <nav class="top-nav" aria-label="Navegación principal">
+        <a class="nav-pill" id="nav-lectura" href="../Lectura/lectura.html">Lectura</a>
+        <a class="nav-pill nav-pill--active" id="nav-logic" href="./razonamiento.html">Razonamiento</a>
+        <button class="nav-pill" id="nav-math" type="button">Matemáticas</button>
+      </nav>
+
+      <div class="topbar-right">
+        <span class="session-label">
+          Sesión: <strong class="session-status">anónima</strong>
+        </span>
+        <button class="btn btn-dark" id="btn-auth" type="button">Entrar / Registrarse</button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main class="main">
+      <section class="hero">
+        <p class="hero-kicker">BIENVENIDO A</p>
+        <h1 class="hero-title">Razonamiento Lógico</h1>
+        <p class="hero-subtitle">
+          Series, patrones, deducción y pensamiento crítico. Niveles cortos con reglas claras, puntaje y estado de aprobación.
+        </p>
+        <p class="hero-hello">Hola, <span id="hero-name">Invitado</span> 👋</p>
+      </section>
+
+      <!-- LISTA DE NIVELES -->
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">Niveles</h2>
+          <p class="section-note">
+            Empieza por <strong>r1</strong>. Los demás los activamos cuando tú quieras.
+          </p>
+        </div>
+
+        <!-- Aquí el JS inyecta las 30 tarjetas -->
+        <div class="levels-grid" id="levels-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="muted">
+        LineXpert · Razonamiento Lógico · Progreso guardado en este navegador (localStorage).
+      </p>
+    </footer>
+  </div>
+
+  <!-- Script del módulo -->
+  <script src="./razonamiento.js?v=1"></script>
+</body>
+</html>

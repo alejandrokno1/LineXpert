@@ -1,0 +1,333 @@
+/* Razonamiento/razonamiento.css (mejorado)
+   Estilos del módulo Razonamiento Lógico
+*/
+
+:root{
+  --rx-card-bg: rgba(10, 20, 35, 0.55);
+  --rx-card-border: rgba(255, 255, 255, 0.10);
+  --rx-card-glow: rgba(255, 255, 255, 0.06);
+  --rx-text: rgba(255, 255, 255, 0.92);
+  --rx-muted: rgba(255, 255, 255, 0.68);
+
+  --rx-radius: 20px;
+  --rx-gap: 16px;
+}
+
+/* Limitar ancho del módulo (para que no se “estire” infinito) */
+.main{
+  padding-bottom: 40px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.section{
+  margin-top: 22px;
+}
+
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.section-title{
+  margin:0;
+  font-size: 22px;
+  letter-spacing: -0.3px;
+}
+
+.section-note{
+  margin:0;
+  color: var(--rx-muted);
+  font-size: 14px;
+}
+
+/* Grid más “natural”: tarjetas con ancho máximo, no gigantes */
+.levels-grid{
+  display:grid;
+  gap: var(--rx-gap);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+@media (min-width: 1200px){
+  .levels-grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px){
+  .levels-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====== Filtros ====== */
+.rx-filter{
+  display:flex;
+  gap:10px;
+  margin: 10px 0 14px;
+  flex-wrap: wrap;
+}
+
+.rx-filter-btn{
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.90);
+  cursor:pointer;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.rx-filter-btn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.18);
+}
+
+.rx-filter-btn.is-active{
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.24);
+}
+
+.rx-filter-btn:focus-visible{
+  outline: 2px solid rgba(255,255,255,0.28);
+  outline-offset: 2px;
+}
+
+/* ====== Headers de bloques ====== */
+.levels-header{
+  grid-column: 1 / -1;
+  margin-top: 6px;
+  padding: 14px 14px 12px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.levels-header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+}
+
+.levels-header-title{
+  margin:0;
+  font-size: 18px;
+  letter-spacing: -0.2px;
+  color: rgba(255,255,255,0.92);
+}
+
+.levels-header-sub{
+  margin: 6px 0 0;
+  color: rgba(255,255,255,0.68);
+  font-size: 13.5px;
+}
+
+/* ====== Tarjeta ====== */
+.level-card{
+  position: relative;
+  border-radius: var(--rx-radius);
+  padding: 16px 16px 14px;
+  background: var(--rx-card-bg);
+  border: 1px solid var(--rx-card-border);
+  box-shadow:
+    0 10px 26px rgba(0,0,0,0.22),
+    inset 0 1px 0 var(--rx-card-glow);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(240px, 22vw, 280px);
+
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.level-card:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.16);
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.26),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+}
+
+.level-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.level-name{
+  margin:0 0 6px;
+  font-size: 18px;
+  color: var(--rx-text);
+  letter-spacing: -0.2px;
+  line-height: 1.15;
+}
+
+.level-about{
+  margin: 10px 0 10px;
+  color: var(--rx-muted);
+  line-height: 1.35;
+  font-size: 14px;
+}
+
+.level-about strong{
+  color: var(--rx-text);
+}
+
+.level-block{
+  border-top: 1px solid rgba(255,255,255,0.10);
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.level-block-title{
+  margin:0 0 6px;
+  color: var(--rx-text);
+  font-weight: 700;
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+.level-rules{
+  margin:0;
+  padding-left: 18px;
+  color: var(--rx-muted);
+  line-height: 1.35;
+  font-size: 13px;
+}
+
+.level-score{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Pills / Badges */
+.badges{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.badge--muted{
+  color: rgba(255,255,255,0.78);
+  background: rgba(255,255,255,0.05);
+}
+
+.badge--ok{
+  background: rgba(43, 205, 120, 0.15);
+  border-color: rgba(43, 205, 120, 0.28);
+  color: rgba(210, 255, 230, 0.95);
+}
+
+.badge--no{
+  background: rgba(255, 72, 92, 0.12);
+  border-color: rgba(255, 72, 92, 0.25);
+  color: rgba(255, 210, 215, 0.95);
+}
+
+.score-pill{
+  display:inline-flex;
+  align-items:center;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.86);
+  font-size: 12.5px;
+}
+
+.level-actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-top: auto; /* empuja acciones hacia abajo */
+  padding-top: 12px;
+}
+
+/* Botón */
+.btn{
+  border-radius: 14px;
+}
+
+.btn:focus-visible{
+  outline: 2px solid rgba(255,255,255,0.25);
+  outline-offset: 2px;
+}
+
+.btn[disabled]{
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Footer del módulo */
+.footer{
+  max-width: 1120px;
+  margin: 22px auto 0;
+  padding: 18px 18px 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.muted{
+  color: rgba(255,255,255,0.65);
+}
+
+/* Shine decorativo más sutil */
+.level-card::after{
+  content:"";
+  position:absolute;
+  inset: -70px -70px auto auto;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.10), transparent 60%);
+  transform: rotate(18deg);
+  pointer-events:none;
+  opacity: 0.55;
+}
+
+
+/* ===== FIX: encabezados de bloque visibles ===== */
+.levels-header{
+  background: rgba(10, 20, 35, 0.55);           /* más oscuro */
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.levels-header-title{
+  color: rgba(255,255,255,0.95) !important;     /* antes se perdía */
+}
+
+.levels-header-sub{
+  color: rgba(255,255,255,0.72) !important;
+}
+
+/* ===== FIX: filtros visibles en fondo claro ===== */
+.rx-filter-btn{
+  color: rgba(255,255,255,0.92) !important;
+  background: rgba(10, 20, 35, 0.40);
+  border-color: rgba(255,255,255,0.14);
+}
+
+.rx-filter-btn.is-active{
+  background: rgba(10, 20, 35, 0.62);
+  border-color: rgba(255,255,255,0.22);
+}

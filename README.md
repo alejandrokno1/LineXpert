@@ -1,6 +1,6 @@
 # LineXpert · Procesos de Pensamiento (Beta)
 
-LineXpert es una plataforma web estática (HTML/CSS/JS) para practicar **Procesos de Pensamiento** con módulos por área (Lectura / Matemáticas) y niveles (n1, n2, …, n30).
+LineXpert es una plataforma web estática (HTML/CSS/JS) para practicar **Procesos de Pensamiento** con módulos por área (Lectura / Matemáticas / Razonamiento) y niveles (n1, n2, …).
 El objetivo es crecer por niveles, guardando progreso y mostrando estado (Aprobado / No aprobado).
 
 ---
@@ -33,6 +33,12 @@ https://github.com/alejandrokno1/LineXpert
 - Banco: `n1banco.js` (usa `window.LX_N1_BANK`).
 - Guarda mejor puntaje e info de intentos en `localStorage`.
 
+✅ Módulo Razonamiento (`/Razonamiento/`)
+- Página principal: `/Razonamiento/razonamiento.html`
+- Render de niveles por bloques: **Abstracto (r1–r30)** e **ICFES (r31–r60)**.
+- Filtros: Todos / Abstracto / ICFES.
+- Convención de progreso: `lx_logic_rX_best` (mejor puntaje por nivel).
+
 ---
 
 ## Arquitectura de carpetas
@@ -40,12 +46,22 @@ https://github.com/alejandrokno1/LineXpert
 > Importante: GitHub Pages es **case-sensitive** (respeta mayúsculas/minúsculas).  
 > Ej: `Lectura/` NO es lo mismo que `lectura/`.
 
-### Estructura futura completa (30 niveles por módulo)
+### Estructura futura completa (niveles por módulo)
 
-Regla: cada nivel nX vive en `/niveles/nX/` y tiene 4 archivos:
-- `nX.html`, `nX.css`, `nX.js`, `nXbanco.js`
+Regla: cada nivel vive en `/niveles/<id>/` y tiene 4 archivos:
+- `<id>.html`, `<id>.css`, `<id>.js`, `<id>banco.js`
 
-```
+## Arquitectura de carpetas
+
+> Importante: GitHub Pages es **case-sensitive** (respeta mayúsculas/minúsculas).  
+> Ej: `Lectura/` NO es lo mismo que `lectura/`.
+
+### Estructura futura completa (niveles por módulo)
+
+Regla: cada nivel vive en `/niveles/<id>/` y tiene 4 archivos:
+- `<id>.html`, `<id>.css`, `<id>.js`, `<id>banco.js`
+
+```txt
 LineXpert/
   index.html
   index.css
@@ -59,15 +75,21 @@ LineXpert/
     niveles/
       n1/ ... n30/
 
+  Razonamiento/
+    razonamiento.html
+    razonamiento.css
+    razonamiento.js
+    niveles/
+      r1/ ... r60/
+
   Matematicas/
     matematicas.html
     matematicas.css
     matematicas.js
     niveles/
-      n1/ ... n30/
-```
+      n1/ ... n30/ ```
 
----
+``````
 
 ## Plan pedagógico: 30 niveles de Lectura (qué trae cada nivel)
 
@@ -209,6 +231,208 @@ LineXpert/
 
 ---
 
+## Plan pedagógico: 60 niveles de Razonamiento (Abstracto + ICFES)
+
+> Objetivo general: fortalecer pensamiento lógico desde **patrones y deducción abstracta** → **interpretación y toma de decisiones tipo ICFES**.
+> Cada nivel tendrá su carpeta: `Razonamiento/niveles/rX/` con `rX.html`, `rX.css`, `rX.js`, `rXbanco.js`.
+
+### Reglas sugeridas (base)
+- r1–r20: 5 preguntas · 60s · +20 correcta · 0 incorrecta · aprueba 70/100
+- r21–r40: 6–8 preguntas · 90–120s · aprueba 70/100
+- r41–r60: 8–12 preguntas (mini-simulacros) · 2–8 min · aprueba 70/100
+
+> Nota: se puede ajustar por nivel manteniendo el render y la estructura.
+
+---
+
+### Bloque A · Razonamiento Abstracto (r1–r30)
+
+**r1 · Series numéricas**
+- Completar secuencias identificando patrón (sumas, restas, multiplicación, alternancias).
+
+**r2 · Series alfanuméricas**
+- Patrones con letras y números (saltos, ciclos, posiciones).
+
+**r3 · Analogías**
+- A es a B como C es a __ (función, parte-todo, causa-efecto, etc.).
+
+**r4 · Clasificación (intruso)**
+- Elegir el elemento que NO pertenece según una regla.
+
+**r5 · Ordenamientos**
+- Orden correcto con pistas (mayor/menor, antes/después).
+
+**r6 · Relaciones y comparaciones**
+- Deducción con relaciones (A > B, B = C, etc.).
+
+**r7 · Lógica de proposiciones**
+- Verdadero/falso según conectores (y, o, si… entonces).
+
+**r8 · Silogismos**
+- Conclusiones válidas a partir de premisas (todos/algunos/ninguno).
+
+**r9 · Conjuntos (Venn)**
+- Unión/intersección/complemento con situaciones sencillas.
+
+**r10 · Secuencias de figuras**
+- Patrones visuales (repetición, crecimiento, alternancia).
+
+**r11 · Rotaciones y simetrías**
+- Giros, reflejos y simetría axial/central.
+
+**r12 · Figuras en cuadrícula**
+- Traslaciones, conteo y patrones en mallas.
+
+**r13 · Matrices 2×2 (figuras)**
+- Completar casilla faltante por regla de filas/columnas.
+
+**r14 · Matrices 3×3 (intro)**
+- Reglas simples para completar matrices visuales.
+
+**r15 · Plegado de papel (intro)**
+- Predicción tras doblar/desdoblar.
+
+**r16 · Cubos y caras (desarrollos)**
+- Redes de cubo y correspondencia de caras.
+
+**r17 · Conteo lógico**
+- Conteo de casos posibles sin fórmulas pesadas.
+
+**r18 · Probabilidad básica**
+- Probabilidad en eventos simples equiprobables.
+
+**r19 · Patrones con reglas**
+- Hallar la regla exacta que genera una serie/figura.
+
+**r20 · Deducción con pistas**
+- Rompecabezas tipo “quién vive dónde” (tabla de pistas).
+
+**r21 · Direcciones y recorridos**
+- Norte/sur/este/oeste, giros y ubicación final.
+
+**r22 · Parentescos**
+- Deducción con relaciones familiares (tío, primo, suegro).
+
+**r23 · Cronología**
+- Ordenar eventos por tiempos con información parcial.
+
+**r24 · Tablas y reglas**
+- Completar tablas siguiendo reglas.
+
+**r25 · Inferencia corta**
+- Elegir conclusión que sí se deduce (sin suposiciones).
+
+**r26 · Supuestos (intro)**
+- Qué debe ser cierto para que el argumento funcione.
+
+**r27 · Errores comunes**
+- Detectar generalización, falsa causa, etc.
+
+**r28 · Patrones mixtos**
+- Series que mezclan dos reglas o dos subsecuencias.
+
+**r29 · Velocidad y precisión**
+- Entrenamiento de respuesta rápida sin perder exactitud.
+
+**r30 · Mini-reto Abstracto**
+- Repaso del bloque con mezcla de habilidades.
+
+---
+
+### Bloque B · Estilo ICFES (r31–r60)
+
+**r31 · Patrones en contexto**
+- Patrones aplicados a situaciones (turnos, tiempos, cantidades).
+
+**r32 · Tablas (lectura)**
+- Lectura e interpretación de tablas (sin cálculos largos).
+
+**r33 · Gráficos (lectura)**
+- Interpretar barras/líneas: máximos, mínimos, tendencias.
+
+**r34 · Proporcionalidad**
+- Razones y proporciones (regla de tres mental).
+
+**r35 · Porcentajes**
+- Aumentos, descuentos y comparaciones.
+
+**r36 · Promedio y mediana**
+- Medidas de tendencia central en contexto.
+
+**r37 · Dispersión (básico)**
+- Rango y variación general de datos.
+
+**r38 · Probabilidad en contexto**
+- Eventos simples con rifas/encuestas.
+
+**r39 · Combinaciones simples**
+- Conteo de opciones (rutas, menús, selecciones).
+
+**r40 · Lógica de enunciados**
+- Condicionales y negaciones en lenguaje natural.
+
+**r41 · Argumentos (conclusión)**
+- Identificar conclusión y premisas.
+
+**r42 · Supuestos**
+- Idea que el argumento da por sentada.
+
+**r43 · Fortalecer/debilitar**
+- Opciones que fortalecen o debilitan una conclusión.
+
+**r44 · Causa vs correlación**
+- Diferenciar causalidad y correlación.
+
+**r45 · Extrapolación cuidadosa**
+- Conclusiones válidas sin ir más allá de los datos.
+
+**r46 · Interpretación de reglas**
+- Aplicar una norma/condición a casos.
+
+**r47 · Comparación de escenarios**
+- Analiza efectos de una modificación (¿qué cambia si…?).
+
+**r48 · Lectura multi-paso**
+- 2 pasos: dato → cálculo corto → decisión.
+
+**r49 · Unidades y magnitudes**
+- Conversiones simples e interpretación.
+
+**r50 · Geometría en contexto**
+- Perímetro/área básicos aplicados.
+
+**r51 · Funciones (idea)**
+- Relación variable→variable desde tabla/gráfica.
+
+**r52 · Tendencia y predicción**
+- Leer tendencia y estimar valores razonables.
+
+**r53 · Consistencia**
+- Detectar contradicciones entre datos/enunciados.
+
+**r54 · Selección de estrategia**
+- Elegir el método más eficiente (sin resolver todo).
+
+**r55 · Trampas típicas**
+- Identificar distractores frecuentes.
+
+**r56 · Condiciones y casos**
+- Razonamiento con “si A entonces B” y casos.
+
+**r57 · Diagramas y rutas**
+- Mapas/diagramas para decidir.
+
+**r58 · Síntesis de información**
+- Combina 2 fuentes (tabla+texto / gráfico+texto).
+
+**r59 · Mini-simulacro ICFES**
+- Mezcla de ítems tipo examen.
+
+**r60 · Simulacro global**
+- Repaso general (Abstracto + ICFES).
+
+---
+
 ## Sección “Actualizaciones” (Home)
 
 Archivo: `updates.js`
@@ -227,6 +451,9 @@ Usuario:
 Convención recomendada para Lectura:
 - `lx_lectura_nX_best`, `lx_lectura_nX_last`, `lx_lectura_nX_attempts`, `lx_lectura_nX_lastDate`, `lx_lectura_nX_lastCorrect`
 
+Convención recomendada para Razonamiento:
+- `lx_logic_rX_best`, `lx_logic_rX_last`, `lx_logic_rX_attempts`, `lx_logic_rX_lastDate`, `lx_logic_rX_lastCorrect`
+
 Convención recomendada para Matemáticas:
 - `lx_mate_nX_best`, `lx_mate_nX_last`, `lx_mate_nX_attempts`, `lx_mate_nX_lastDate`, `lx_mate_nX_lastCorrect`
 
@@ -237,23 +464,5 @@ Convención recomendada para Matemáticas:
 Opción A: VS Code + Live Server  
 Opción B:
 ```bash
-python -m http.server 5500
-```
-Abrir: http://localhost:5500/
+python -m http.server 5500  ```
 
----
-
-## Cómo publicar cambios (Git)
-
-```bash
-git status
-git add .
-git commit -m "Mensaje claro del cambio"
-git push origin main
-```
-
-Si hay conflicto:
-```bash
-git pull --rebase origin main
-git push origin main
-```
