@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LineXpert · Razonamiento · r1</title>
+
+  <!-- Base global -->
+  <link rel="stylesheet" href="../../../index.css?v=1" />
+  <!-- Estilo del módulo razonamiento -->
+  <link rel="stylesheet" href="../../razonamiento.css?v=1" />
+  <!-- Estilo específico del nivel -->
+  <link rel="stylesheet" href="./r1.css?v=1" />
+</head>
+
+<body>
+  <div class="page-shell">
+    <!-- Topbar simple -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="brand-logo"><span class="brand-emoji">🧠</span></div>
+        <div class="brand-text">
+          <span class="brand-name">LineXpert</span>
+          <span class="brand-badge">Beta</span>
+        </div>
+      </div>
+
+      <nav class="top-nav" aria-label="Navegación">
+        <a class="nav-pill" href="../../razonamiento.html">Razonamiento</a>
+        <a class="nav-pill" href="../../../index.html">Inicio</a>
+      </nav>
+
+      <div class="topbar-right">
+        <span class="session-label">
+          Sesión: <strong class="session-status">anónima</strong>
+        </span>
+        <button id="btn-auth" class="btn btn-primary" type="button">
+          Entrar / Registrarse
+        </button>
+      </div>
+    </header>
+
+    <main class="main rx-level">
+      <section class="hero hero--compact">
+        <p class="hero-kicker">Razonamiento · Bloque Abstracto</p>
+        <h1 class="hero-title">Nivel r1 · Series numéricas</h1>
+        <p class="hero-subtitle">
+          Identifica el patrón (sumas, restas, multiplicaciones, alternancias o diferencias) y elige el número que completa la serie.
+        </p>
+        <p class="hero-greeting">Hola, <span id="hero-name">Invitado</span> 👋</p>
+      </section>
+
+      <!-- Panel superior -->
+      <section class="panel">
+        <div class="panel-row">
+          <div class="panel-left">
+            <div class="badges">
+              <span class="badge badge--muted">Reglas</span>
+              <span class="badge">5 preguntas</span>
+              <span class="badge">60s</span>
+              <span class="badge">+20 correcta</span>
+              <span class="badge">0 incorrecta</span>
+              <span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+          </div>
+
+          <div class="panel-right">
+            <span id="best-badge" class="badge badge--muted">Mejor r1: 0/100</span>
+            <span id="timer-badge" class="badge">⏱️ 01:00</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vista: inicio -->
+      <section id="view-start" class="panel">
+        <h2 class="panel-title">Instrucciones</h2>
+        <ul class="panel-list">
+          <li>Cuando inicies, verás 5 series numéricas.</li>
+          <li>Selecciona una opción por pregunta.</li>
+          <li>Cuando se acabe el tiempo, se envía automáticamente.</li>
+        </ul>
+
+        <div class="panel-actions">
+          <button id="btn-start" class="btn btn-dark" type="button">Iniciar</button>
+          <button id="btn-start-demo" class="btn" type="button">Ver ejemplo</button>
+        </div>
+
+        <div id="demo-box" class="demo hidden" aria-hidden="true">
+          <p class="demo-title"><strong>Ejemplo:</strong> 2, 4, 6, 8, __</p>
+          <p class="demo-text muted">Patrón: suma +2. Respuesta: 10.</p>
+        </div>
+
+        <p id="bank-warning" class="muted hidden" style="margin-top:12px;">
+          No hay suficientes preguntas válidas en el banco. Revisa <code>r1banco.js</code>.
+        </p>
+      </section>
+
+      <!-- Vista: quiz -->
+      <section id="view-quiz" class="panel hidden">
+        <h2 class="panel-title">Preguntas</h2>
+        <div id="questions" class="questions"></div>
+
+        <div class="panel-actions">
+          <button id="btn-submit" class="btn btn-dark" type="button">Enviar</button>
+          <button id="btn-finish" class="btn" type="button">Terminar ahora</button>
+        </div>
+      </section>
+
+      <!-- Vista: resultado -->
+      <section id="view-result" class="panel hidden">
+        <h2 class="panel-title">Resultado</h2>
+
+        <div id="result-summary" class="result-summary"></div>
+
+        <div class="panel-actions">
+          <button id="btn-retry" class="btn btn-dark" type="button">Intentar de nuevo</button>
+          <a class="btn" href="../../razonamiento.html">Volver al módulo</a>
+        </div>
+
+        <details class="result-details">
+          <summary>Ver revisión (respuestas y explicación)</summary>
+          <div id="result-review" class="result-review"></div>
+        </details>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="muted">© 2025 LineXpert · r1 Series numéricas</p>
+    </footer>
+  </div>
+
+  <!-- Banco + lógica -->
+  <script defer src="./r1banco.js?v=1"></script>
+  <script defer src="./r1.js?v=1"></script>
+</body>
+</html>

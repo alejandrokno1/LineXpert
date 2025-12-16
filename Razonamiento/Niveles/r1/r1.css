@@ -1,0 +1,149 @@
+/* Razonamiento/niveles/r1/r1.css */
+
+.rx-level{
+  padding-bottom: 44px;
+}
+
+.hero--compact .hero-title{
+  font-size: 34px;
+}
+
+.panel{
+  margin-top: 16px;
+}
+
+.panel-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap: 16px;
+}
+
+.panel-title{
+  margin: 0 0 10px;
+  font-size: 18px;
+  letter-spacing: -0.2px;
+}
+
+.panel-list{
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.45;
+}
+
+.panel-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.demo{
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+}
+
+.demo-title{
+  margin: 0 0 6px;
+}
+
+.demo-text{
+  margin: 0;
+}
+
+.hidden{ display:none !important; }
+
+/* Preguntas */
+.questions{
+  display:grid;
+  gap: 14px;
+}
+
+.q-card{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  padding: 14px;
+}
+
+.q-top{
+  display:flex;
+  justify-content:space-between;
+  gap: 10px;
+  align-items:flex-start;
+}
+
+.q-title{
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.q-seq{
+  margin: 0 0 10px;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+}
+
+.options{
+  display:grid;
+  gap: 8px;
+}
+
+.opt{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+  cursor:pointer;
+}
+
+.opt input{
+  transform: translateY(-0.5px);
+}
+
+.opt:hover{
+  background: rgba(0,0,0,0.26);
+}
+
+.result-summary{
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  line-height: 1.45;
+}
+
+.result-details{
+  margin-top: 14px;
+}
+
+.result-review{
+  margin-top: 10px;
+  display:grid;
+  gap: 12px;
+}
+
+.review-item{
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+  padding: 12px 14px;
+}
+
+.review-item p{
+  margin: 6px 0 0;
+}
+
+.review-ok{
+  border-color: rgba(43, 205, 120, 0.30);
+}
+
+.review-no{
+  border-color: rgba(255, 72, 92, 0.30);
+}
