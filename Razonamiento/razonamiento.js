@@ -1,13 +1,6 @@
-// Razonamiento/razonamiento.js
-// Render de niveles r1...r60 en 2 bloques: Abstracto e ICFES
-// (por defecto solo r1 activo; el resto "Próximamente")
-
 (function () {
   "use strict";
 
-  // =====================
-  // Sesión / saludo
-  // =====================
   const storedName = localStorage.getItem("lx_nombre");
   const heroNameSpan = document.getElementById("hero-name");
   const sessionStatusSpan = document.querySelector(".session-status");
@@ -16,7 +9,6 @@
   if (heroNameSpan) heroNameSpan.textContent = displayName;
   if (sessionStatusSpan) sessionStatusSpan.textContent = storedName ? displayName : "anónima";
 
-  // Tabs: Matemáticas (placeholder)
   const navMath = document.getElementById("nav-math");
   if (navMath) {
     navMath.addEventListener("click", (e) => {
@@ -25,7 +17,6 @@
     });
   }
 
-  // Auth placeholder
   const authBtn = document.getElementById("btn-auth");
   if (authBtn) {
     authBtn.addEventListener("click", () => {
@@ -33,9 +24,6 @@
     });
   }
 
-  // =====================
-  // Config común
-  // =====================
   const DEFAULT_RULES = [
     "5 preguntas (opción múltiple).",
     "Tiempo: 60 segundos.",
@@ -43,13 +31,10 @@
     "Aprueba: 70/100.",
   ];
 
-  // Activos (por ahora solo r1). Para activar más: ["r1","r2",...]
   const ENABLED_LEVELS = new Set(["r1"]);
 
-  // Storage best score por tarjeta
   function getBestScore(levelId) {
-    const key = `lx_logic_${levelId}_best`;
-    const raw = localStorage.getItem(key);
+    const raw = localStorage.getItem(`lx_logic_${levelId}_best`);
     const val = Number(raw);
     return Number.isFinite(val) ? val : 0;
   }
@@ -67,13 +52,7 @@
       .replaceAll("'", "&#039;");
   }
 
-  // =====================
-  // Plan 60 niveles (META)
-  // =====================
-  // Nota: action real solo cuando exista el HTML del nivel.
-  // Mientras tanto: alert.
   const META = {
-    // ---------- BLOQUE A: ABSTRACTO (r1..r30)
     r1:  { t: "Nivel r1 · Series numéricas", a: "Completa secuencias identificando el patrón (sumas, restas, multiplicación, alternancias).", rules: DEFAULT_RULES },
     r2:  { t: "Nivel r2 · Series alfanuméricas", a: "Patrones con letras y números (saltos, ciclos, posiciones).", rules: DEFAULT_RULES },
     r3:  { t: "Nivel r3 · Analogías", a: "A es a B como C es a __ (relación lógica: función, parte-todo, causa-efecto).", rules: DEFAULT_RULES },
@@ -105,7 +84,6 @@
     r29: { t: "Nivel r29 · Velocidad y precisión", a: "Ejercicios cortos para responder rápido sin perder exactitud.", rules: DEFAULT_RULES },
     r30: { t: "Nivel r30 · Mini-reto Abstracto", a: "Combinación de patrones y deducción (repaso del bloque).", rules: DEFAULT_RULES },
 
-    // ---------- BLOQUE B: ICFES (r31..r60)
     r31: { t: "Nivel r31 · ICFES: patrones en contexto", a: "Series y patrones aplicados a situaciones (tiempo, turnos, cantidades).", rules: DEFAULT_RULES },
     r32: { t: "Nivel r32 · ICFES: tablas (lectura)", a: "Lee tablas y elige conclusiones directas (sin cálculos largos).", rules: DEFAULT_RULES },
     r33: { t: "Nivel r33 · ICFES: gráficos (lectura)", a: "Interpreta barras/líneas: máximos, mínimos, tendencias.", rules: DEFAULT_RULES },
@@ -138,20 +116,14 @@
     r60: { t: "Nivel r60 · Cierre: simulacro global", a: "Repaso general (Abstracto + ICFES) con enfoque en decisiones.", rules: DEFAULT_RULES },
   };
 
-  // action real (solo si existe el html)
   function defaultAction(id) {
     alert(`${id} aún está en construcción.`);
   }
 
-  // Si quieres “r1” con ruta real:
   const ACTIONS = {
     r1: () => (window.location.href = "./niveles/r1/r1.html"),
-    // r2: () => (window.location.href = "./niveles/r2/r2.html"),
   };
 
-  // =====================
-  // Construir lista niveles r1..r60
-  // =====================
   const LEVELS = Array.from({ length: 60 }, (_, idx) => {
     const n = idx + 1;
     const id = `r${n}`;
@@ -174,17 +146,12 @@
     };
   });
 
-  // =====================
-  // Render con bloques + filtro
-  // =====================
   const grid = document.getElementById("levels-grid");
+  if (!grid) return;
 
-  // contenedor de filtros (si no existe, lo creamos antes del grid)
   function ensureFilterBar() {
     const existing = document.getElementById("rx-filter");
     if (existing) return existing;
-
-    if (!grid || !grid.parentElement) return null;
 
     const bar = document.createElement("div");
     bar.id = "rx-filter";
@@ -206,44 +173,9 @@
 
   let currentFilter = "all";
 
-  function renderFilterBar() {
-    if (!filterBar) return;
-
-    filterBar.innerHTML = FILTERS.map((f) => {
-      const isActive = f.key === currentFilter;
-      return `
-        <button type="button"
-          class="rx-filter-btn ${isActive ? "is-active" : ""}"
-          data-filter="${f.key}"
-          aria-pressed="${isActive ? "true" : "false"}">
-          ${escapeHtml(f.label)}
-        </button>
-      `;
-    }).join("");
-
-    filterBar.addEventListener("click", (e) => {
-      const btn = e.target && e.target.closest && e.target.closest("button[data-filter]");
-      if (!btn) return;
-
-      const next = btn.getAttribute("data-filter") || "all";
-      currentFilter = next;
-
-      // actualiza UI botones
-      filterBar.querySelectorAll(".rx-filter-btn").forEach((b) => {
-        const k = b.getAttribute("data-filter");
-        const active = k === currentFilter;
-        b.classList.toggle("is-active", active);
-        b.setAttribute("aria-pressed", active ? "true" : "false");
-      });
-
-      renderLevels();
-    }, { once: true }); // listener 1 vez (renderFilterBar se llama una sola vez)
-  }
-
   function insertBlockHeader(title, subtitle, countText) {
     const header = document.createElement("div");
     header.className = "levels-header";
-
     header.innerHTML = `
       <div class="levels-header-top">
         <h3 class="levels-header-title">${escapeHtml(title)}</h3>
@@ -251,69 +183,21 @@
       </div>
       <p class="levels-header-sub">${escapeHtml(subtitle)}</p>
     `;
-
     grid.appendChild(header);
   }
 
   function shouldShowLevel(lvl) {
-    if (currentFilter === "all") return true;
-    return lvl.block === currentFilter;
-  }
-
-  function renderLevels() {
-    if (!grid) return;
-    grid.innerHTML = "";
-
-    const visible = LEVELS.filter(shouldShowLevel);
-
-    const abstracto = visible.filter((x) => x.block === "abstracto");
-    const icfes = visible.filter((x) => x.block === "icfes");
-
-    if (!visible.length) {
-      grid.innerHTML = `<div class="levels-header"><b>No hay niveles para mostrar.</b></div>`;
-      return;
-    }
-
-    if (abstracto.length) {
-      insertBlockHeader(
-        "Bloque A · Razonamiento Abstracto",
-        "Patrones, deducción y visual (base del pensamiento lógico).",
-        `${abstracto.length} niveles`
-      );
-      abstracto.forEach(renderCard);
-    }
-
-    if (icfes.length) {
-      insertBlockHeader(
-        "Bloque B · Estilo ICFES",
-        "Interpretación, argumentos y decisiones tipo examen.",
-        `${icfes.length} niveles`
-      );
-      icfes.forEach(renderCard);
-    }
-
-    // Un solo handler para todos los botones
-    grid.addEventListener("click", (e) => {
-      const btn = e.target && e.target.closest && e.target.closest("button[data-level]");
-      if (!btn) return;
-
-      const id = btn.getAttribute("data-level");
-      const lvl = LEVELS.find((x) => x.id === id);
-      if (!lvl) return;
-
-      lvl.action();
-    }, { once: true });
+    return currentFilter === "all" ? true : lvl.block === currentFilter;
   }
 
   function renderCard(lvl) {
     const best = getBestScore(lvl.id);
     const status = getStatusLabel(best, lvl.passScore);
     const statusClass = status === "Aprobado" ? "badge--ok" : "badge--no";
+    const blockLabel = lvl.block === "abstracto" ? "Abstracto" : "ICFES";
 
     const card = document.createElement("article");
     card.className = "level-card";
-
-    const blockLabel = lvl.block === "abstracto" ? "Abstracto" : "ICFES";
 
     card.innerHTML = `
       <div class="level-top">
@@ -355,9 +239,94 @@
     grid.appendChild(card);
   }
 
-  // =====================
-  // Init
-  // =====================
-  renderFilterBar();
+  function renderFilterBarUI() {
+    if (!filterBar) return;
+
+    filterBar.innerHTML = FILTERS.map((f) => {
+      const isActive = f.key === currentFilter;
+      return `
+        <button type="button"
+          class="rx-filter-btn ${isActive ? "is-active" : ""}"
+          data-filter="${f.key}"
+          aria-pressed="${isActive ? "true" : "false"}">
+          ${escapeHtml(f.label)}
+        </button>
+      `;
+    }).join("");
+  }
+
+  function renderLevels() {
+    grid.innerHTML = "";
+
+    const visible = LEVELS.filter(shouldShowLevel);
+    if (!visible.length) {
+      grid.innerHTML = `<div class="levels-header"><b>No hay niveles para mostrar.</b></div>`;
+      return;
+    }
+
+    const abstracto = visible.filter((x) => x.block === "abstracto");
+    const icfes = visible.filter((x) => x.block === "icfes");
+
+    if (abstracto.length) {
+      insertBlockHeader(
+        "Bloque A · Razonamiento Abstracto",
+        "Patrones, deducción y visual (base del pensamiento lógico).",
+        `${abstracto.length} niveles`
+      );
+      abstracto.forEach(renderCard);
+    }
+
+    if (icfes.length) {
+      insertBlockHeader(
+        "Bloque B · Estilo ICFES",
+        "Interpretación, argumentos y decisiones tipo examen.",
+        `${icfes.length} niveles`
+      );
+      icfes.forEach(renderCard);
+    }
+  }
+
+  function bindFilterOnce() {
+    if (!filterBar) return;
+    if (filterBar.dataset.bound === "1") return;
+    filterBar.dataset.bound = "1";
+
+    filterBar.addEventListener("click", (e) => {
+      const btn = e.target && e.target.closest && e.target.closest("button[data-filter]");
+      if (!btn) return;
+
+      currentFilter = btn.getAttribute("data-filter") || "all";
+
+      filterBar.querySelectorAll(".rx-filter-btn").forEach((b) => {
+        const k = b.getAttribute("data-filter");
+        const active = k === currentFilter;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      renderLevels();
+    });
+  }
+
+  function bindGridOnce() {
+    if (!grid) return;
+    if (grid.dataset.bound === "1") return;
+    grid.dataset.bound = "1";
+
+    grid.addEventListener("click", (e) => {
+      const btn = e.target && e.target.closest && e.target.closest("button[data-level]");
+      if (!btn) return;
+
+      const id = btn.getAttribute("data-level");
+      const lvl = LEVELS.find((x) => x.id === id);
+      if (!lvl) return;
+
+      lvl.action();
+    });
+  }
+
+  renderFilterBarUI();
+  bindFilterOnce();
+  bindGridOnce();
   renderLevels();
 })();
