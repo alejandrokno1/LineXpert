@@ -2,18 +2,12 @@
 (function () {
   "use strict";
 
-  // =====================
-  // Config
-  // =====================
   const LEVEL_ID = "r1";
   const PASS_SCORE = 70;
   const MAX_SCORE = 100;
   const TIME_SECONDS = 60;
   const QUESTIONS_COUNT = 5;
 
-  // =====================
-  // DOM
-  // =====================
   const storedName = localStorage.getItem("lx_nombre");
   const heroNameSpan = document.getElementById("hero-name");
   const sessionStatusSpan = document.querySelector(".session-status");
@@ -39,9 +33,6 @@
   const resultReview = document.getElementById("result-review");
   const btnRetry = document.getElementById("btn-retry");
 
-  // =====================
-  // Sesión / saludo
-  // =====================
   const displayName = storedName || "Invitado";
   if (heroNameSpan) heroNameSpan.textContent = displayName;
   if (sessionStatusSpan) sessionStatusSpan.textContent = storedName ? displayName : "anónima";
@@ -52,35 +43,52 @@
     });
   }
 
-  // =====================
-  // Banco
-  // =====================
   const rawBank = Array.isArray(window.LX_R1_BANK) ? window.LX_R1_BANK : [];
 
-  function isValidItem(it) {
-    if (!it || typeof it !== "object") return false;
-    if (!it.id || !it.seq || !Array.isArray(it.options)) return false;
-    if (it.options.length < 3) return false;
-    if (!Number.isInteger(it.answer)) return false;
-    if (it.answer < 0 || it.answer >= it.options.length) return false;
-    return true;
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  const bank = rawBank.filter(isValidItem);
+  function normalizeItem(it, idx) {
+    if (!it || typeof it !== "object") return null;
 
-  // =====================
-  // Estado
-  // =====================
+    const id = it.id ?? it.code ?? `r1_${idx + 1}`;
+    const seq = it.seq ?? it.serie ?? it.series ?? it.q ?? it.prompt ?? "";
+    const options = it.options ?? it.opciones ?? it.o ?? it.choices ?? [];
+    const answer = Number.isInteger(it.answer) ? it.answer : (Number.isInteger(it.a) ? it.a : (Number.isInteger(it.correctIndex) ? it.correctIndex : null));
+
+    const question = it.question ?? it.text ?? it.enunciado ?? "Selecciona la respuesta correcta.";
+    const explain = it.explain ?? it.exp ?? it.explicacion ?? "—";
+
+    if (!String(seq).trim()) return null;
+    if (!Array.isArray(options) || options.length < 3) return null;
+    if (!Number.isInteger(answer)) return null;
+    if (answer < 0 || answer >= options.length) return null;
+
+    return {
+      id: String(id),
+      seq: String(seq),
+      options: options.map((x) => String(x)),
+      answer,
+      question: String(question),
+      explain: String(explain),
+    };
+  }
+
+  const bank = rawBank.map(normalizeItem).filter(Boolean);
+
   let remaining = TIME_SECONDS;
   let timerHandle = null;
   let quizItems = [];
   let hasSubmitted = false;
 
-  // =====================
-  // Storage helpers
-  // =====================
   function keyLevelBest() {
-    return `lx_logic_${LEVEL_ID}_best`; // convención del módulo razonamiento
+    return `lx_logic_${LEVEL_ID}_best`;
   }
 
   function getNumber(key, fallback = 0) {
@@ -93,14 +101,11 @@
     localStorage.setItem(key, String(value));
   }
 
-  // =====================
-  // UI helpers
-  // =====================
   function show(view) {
-    viewStart.classList.add("hidden");
-    viewQuiz.classList.add("hidden");
-    viewResult.classList.add("hidden");
-    view.classList.remove("hidden");
+    if (viewStart) viewStart.classList.add("hidden");
+    if (viewQuiz) viewQuiz.classList.add("hidden");
+    if (viewResult) viewResult.classList.add("hidden");
+    if (view) view.classList.remove("hidden");
   }
 
   function mmss(seconds) {
@@ -116,18 +121,6 @@
     if (timerBadge) timerBadge.textContent = `⏱️ ${mmss(remaining)}`;
   }
 
-  function escapeHtml(str) {
-    return String(str || "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-  // =====================
-  // Random helpers
-  // =====================
   function shuffle(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -141,9 +134,6 @@
     return shuffle(arr).slice(0, n);
   }
 
-  // =====================
-  // Render quiz
-  // =====================
   function renderQuiz(items) {
     if (!questionsEl) return;
     questionsEl.innerHTML = "";
@@ -175,7 +165,7 @@
           </div>
           <span class="badge badge--muted">${escapeHtml(it.id)}</span>
         </div>
-        <p class="muted" style="margin:0 0 10px;">${escapeHtml(it.question || "Selecciona la respuesta correcta.")}</p>
+        <p class="muted" style="margin:0 0 10px;">${escapeHtml(it.question)}</p>
         <div class="options">${optionsHtml}</div>
       `;
 
@@ -192,9 +182,6 @@
     return answers;
   }
 
-  // =====================
-  // Timer
-  // =====================
   function stopTimer() {
     if (timerHandle) clearInterval(timerHandle);
     timerHandle = null;
@@ -215,19 +202,16 @@
     }, 1000);
   }
 
-  // =====================
-  // Submit + Results
-  // =====================
   function computeScore(userAnswers) {
     let correct = 0;
     quizItems.forEach((it, i) => {
       if (userAnswers[i] === it.answer) correct += 1;
     });
-    return {
-      correct,
-      total: quizItems.length,
-      score: correct * 20, // 5 preguntas => 100
-    };
+
+    const total = quizItems.length || 1;
+    const score = Math.round((correct / total) * MAX_SCORE);
+
+    return { correct, total: quizItems.length, score };
   }
 
   function submitQuiz(isAuto = false) {
@@ -235,74 +219,77 @@
     hasSubmitted = true;
     stopTimer();
 
+    if (btnSubmit) btnSubmit.disabled = true;
+    if (btnFinish) btnFinish.disabled = true;
+
     const userAnswers = readAnswers();
     const { correct, total, score } = computeScore(userAnswers);
 
-    // actualizar mejor puntaje
     const prevBest = getNumber(keyLevelBest(), 0);
     if (score > prevBest) setNumber(keyLevelBest(), score);
     updateBadges();
 
     const passed = score >= PASS_SCORE;
 
-    // resumen
-    resultSummary.innerHTML = `
-      <p><strong>Puntaje:</strong> ${score}/${MAX_SCORE} · <strong>Correctas:</strong> ${correct}/${total}</p>
-      <p><strong>Estado:</strong> <span class="badge ${passed ? "badge--ok" : "badge--no"}">${passed ? "Aprobado" : "No aprobado"}</span></p>
-      <p class="muted">${isAuto ? "Se envió automáticamente porque se terminó el tiempo." : "Enviado correctamente."}</p>
-    `;
-
-    // revisión
-    resultReview.innerHTML = "";
-    quizItems.forEach((it, i) => {
-      const ua = userAnswers[i];
-      const ok = ua === it.answer;
-
-      const userText = ua === null ? "(sin responder)" : it.options[ua];
-      const correctText = it.options[it.answer];
-
-      const box = document.createElement("div");
-      box.className = `review-item ${ok ? "review-ok" : "review-no"}`;
-      box.innerHTML = `
-        <div class="badges">
-          <span class="badge">${escapeHtml(it.id)}</span>
-          <span class="badge ${ok ? "badge--ok" : "badge--no"}">${ok ? "Correcta" : "Incorrecta"}</span>
-        </div>
-        <p><strong>Serie:</strong> ${escapeHtml(it.seq)}</p>
-        <p><strong>Tu respuesta:</strong> ${escapeHtml(String(userText))}</p>
-        <p><strong>Correcta:</strong> ${escapeHtml(String(correctText))}</p>
-        <p class="muted"><strong>Explicación:</strong> ${escapeHtml(it.explain || "—")}</p>
+    if (resultSummary) {
+      resultSummary.innerHTML = `
+        <p><strong>Puntaje:</strong> ${score}/${MAX_SCORE} · <strong>Correctas:</strong> ${correct}/${total}</p>
+        <p><strong>Estado:</strong> <span class="badge ${passed ? "badge--ok" : "badge--no"}">${passed ? "Aprobado" : "No aprobado"}</span></p>
+        <p class="muted">${isAuto ? "Se envió automáticamente porque se terminó el tiempo." : "Enviado correctamente."}</p>
       `;
-      resultReview.appendChild(box);
-    });
+    }
+
+    if (resultReview) {
+      resultReview.innerHTML = "";
+      quizItems.forEach((it, i) => {
+        const ua = userAnswers[i];
+        const ok = ua === it.answer;
+
+        const userText = ua === null ? "(sin responder)" : it.options[ua];
+        const correctText = it.options[it.answer];
+
+        const box = document.createElement("div");
+        box.className = `review-item ${ok ? "review-ok" : "review-no"}`;
+        box.innerHTML = `
+          <div class="badges">
+            <span class="badge">${escapeHtml(it.id)}</span>
+            <span class="badge ${ok ? "badge--ok" : "badge--no"}">${ok ? "Correcta" : "Incorrecta"}</span>
+          </div>
+          <p><strong>Serie:</strong> ${escapeHtml(it.seq)}</p>
+          <p><strong>Tu respuesta:</strong> ${escapeHtml(String(userText))}</p>
+          <p><strong>Correcta:</strong> ${escapeHtml(String(correctText))}</p>
+          <p class="muted"><strong>Explicación:</strong> ${escapeHtml(it.explain)}</p>
+        `;
+        resultReview.appendChild(box);
+      });
+    }
 
     show(viewResult);
   }
 
-  // =====================
-  // Start
-  // =====================
   function startQuiz() {
     if (bank.length < QUESTIONS_COUNT) {
-      bankWarning.classList.remove("hidden");
+      if (bankWarning) bankWarning.classList.remove("hidden");
       return;
     }
-    bankWarning.classList.add("hidden");
+    if (bankWarning) bankWarning.classList.add("hidden");
 
     hasSubmitted = false;
     quizItems = sample(bank, QUESTIONS_COUNT);
+
+    if (btnSubmit) btnSubmit.disabled = false;
+    if (btnFinish) btnFinish.disabled = false;
+    if (resultReview) resultReview.innerHTML = "";
+    if (resultSummary) resultSummary.innerHTML = "";
 
     renderQuiz(quizItems);
     show(viewQuiz);
     startTimer();
   }
 
-  // =====================
-  // Events
-  // =====================
   if (btnStart) btnStart.addEventListener("click", startQuiz);
 
-  if (btnStartDemo) {
+  if (btnStartDemo && demoBox) {
     btnStartDemo.addEventListener("click", () => {
       const isHidden = demoBox.classList.contains("hidden");
       demoBox.classList.toggle("hidden");
@@ -312,22 +299,23 @@
 
   if (btnSubmit) btnSubmit.addEventListener("click", () => submitQuiz(false));
   if (btnFinish) btnFinish.addEventListener("click", () => submitQuiz(false));
-  if (btnRetry) btnRetry.addEventListener("click", () => {
-    // volver a inicio
-    stopTimer();
-    remaining = TIME_SECONDS;
-    hasSubmitted = false;
-    quizItems = [];
-    if (questionsEl) questionsEl.innerHTML = "";
-    if (resultReview) resultReview.innerHTML = "";
-    if (resultSummary) resultSummary.innerHTML = "";
-    updateBadges();
-    show(viewStart);
-  });
 
-  // =====================
-  // Init
-  // =====================
+  if (btnRetry) {
+    btnRetry.addEventListener("click", () => {
+      stopTimer();
+      remaining = TIME_SECONDS;
+      hasSubmitted = false;
+      quizItems = [];
+      if (questionsEl) questionsEl.innerHTML = "";
+      if (resultReview) resultReview.innerHTML = "";
+      if (resultSummary) resultSummary.innerHTML = "";
+      if (btnSubmit) btnSubmit.disabled = false;
+      if (btnFinish) btnFinish.disabled = false;
+      updateBadges();
+      show(viewStart);
+    });
+  }
+
   updateBadges();
   show(viewStart);
 })();

@@ -121,7 +121,7 @@
   }
 
   const ACTIONS = {
-    r1: () => (window.location.href = "./niveles/r1/r1.html"),
+    r1: () => (window.location.href = "./Niveles/r1/r1.html"),
   };
 
   const LEVELS = Array.from({ length: 60 }, (_, idx) => {
