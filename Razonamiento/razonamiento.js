@@ -166,12 +166,23 @@
   const filterBar = ensureFilterBar();
 
   const FILTERS = [
-    { key: "all", label: "Todos (60)" },
-    { key: "abstracto", label: "Abstracto (30)" },
-    { key: "icfes", label: "ICFES (30)" },
+    { key: "all" },
+    { key: "abstracto" },
+    { key: "icfes" },
   ];
 
   let currentFilter = "all";
+
+  function filterLabel(key) {
+    const total = LEVELS.length;
+    const a = LEVELS.filter((x) => x.block === "abstracto").length;
+    const b = LEVELS.filter((x) => x.block === "icfes").length;
+
+    if (key === "all") return `Todos (${total})`;
+    if (key === "abstracto") return `Abstracto (${a})`;
+    if (key === "icfes") return `ICFES (${b})`;
+    return key;
+  }
 
   function insertBlockHeader(title, subtitle, countText) {
     const header = document.createElement("div");
@@ -197,7 +208,16 @@
     const blockLabel = lvl.block === "abstracto" ? "Abstracto" : "ICFES";
 
     const card = document.createElement("article");
-    card.className = "level-card";
+    card.className = `level-card${lvl.enabled ? "" : " is-disabled"}`;
+
+    card.setAttribute("data-level", lvl.id);
+    if (lvl.enabled) {
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", `Abrir ${lvl.id}`);
+    } else {
+      card.setAttribute("aria-disabled", "true");
+    }
 
     card.innerHTML = `
       <div class="level-top">
@@ -249,7 +269,7 @@
           class="rx-filter-btn ${isActive ? "is-active" : ""}"
           data-filter="${f.key}"
           aria-pressed="${isActive ? "true" : "false"}">
-          ${escapeHtml(f.label)}
+          ${escapeHtml(filterLabel(f.key))}
         </button>
       `;
     }).join("");
@@ -308,6 +328,12 @@
     });
   }
 
+  function openLevelById(id) {
+    const lvl = LEVELS.find((x) => x.id === id);
+    if (!lvl || !lvl.enabled) return;
+    lvl.action();
+  }
+
   function bindGridOnce() {
     if (!grid) return;
     if (grid.dataset.bound === "1") return;
@@ -315,13 +341,25 @@
 
     grid.addEventListener("click", (e) => {
       const btn = e.target && e.target.closest && e.target.closest("button[data-level]");
-      if (!btn) return;
+      if (btn) {
+        openLevelById(btn.getAttribute("data-level"));
+        return;
+      }
 
-      const id = btn.getAttribute("data-level");
-      const lvl = LEVELS.find((x) => x.id === id);
-      if (!lvl) return;
+      const card = e.target && e.target.closest && e.target.closest("[data-level]");
+      if (!card) return;
 
-      lvl.action();
+      openLevelById(card.getAttribute("data-level"));
+    });
+
+    grid.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+
+      const card = e.target && e.target.closest && e.target.closest("[data-level]");
+      if (!card) return;
+
+      e.preventDefault();
+      openLevelById(card.getAttribute("data-level"));
     });
   }
 

@@ -147,3 +147,92 @@
 .review-no{
   border-color: rgba(255, 72, 92, 0.30);
 }
+
+
+/* =========================
+   Barra superior (reglas / mejor / reloj)
+   ========================= */
+
+/* 1) Dale contraste a los chips/badges dentro del nivel r1 */
+.rx-level .badge{
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 1px 10px rgba(0,0,0,0.35);
+}
+
+/* 2) Si tu fila superior está dentro del hero (muy común), forzamos contraste */
+.rx-level .hero{
+  position: relative;
+}
+
+/* 3) Esta regla apunta a contenedores típicos de “fila superior”.
+      (No rompe nada si alguno no existe) */
+.rx-level .hero-row,
+.rx-level .hero-top,
+.rx-level .hero-meta,
+.rx-level .hero-badges,
+.rx-level .rx-topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  padding: 10px 12px;
+  border-radius: 16px;
+
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* 4) Agrupar reglas en línea bonita */
+.rx-level .rules,
+.rx-level .rules-bar,
+.rx-level .hero-meta-left,
+.rx-level .rx-topbar-left{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* 5) Mejor + reloj alineados y visibles */
+#best-badge,
+#timer-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.92);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+/* 6) Ajuste fino: que el reloj no quede “apagado” */
+#timer-badge{
+  min-width: 92px;
+  justify-content: center;
+}
+
+/* 7) Responsive: en pantallas estrechas, todo se apila bien */
+@media (max-width: 820px){
+  .rx-level .hero-row,
+  .rx-level .hero-top,
+  .rx-level .hero-meta,
+  .rx-level .hero-badges,
+  .rx-level .rx-topbar{
+    justify-content: flex-start;
+  }
+
+  #best-badge, #timer-badge{
+    width: fit-content;
+  }
+}
