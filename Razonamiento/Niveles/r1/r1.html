@@ -10,12 +10,17 @@
   <!-- Estilo del módulo razonamiento -->
   <link rel="stylesheet" href="../../razonamiento.css?v=1" />
   <!-- Estilo específico del nivel -->
-  <link rel="stylesheet" href="./r1.css?v=1" />
+  <link rel="stylesheet" href="./r1.css?v=4" />
 </head>
 
 <body>
+  <noscript>
+    <div style="padding:12px;margin:12px;border:1px solid rgba(0,0,0,.15);border-radius:10px;">
+      Esta página requiere JavaScript para funcionar.
+    </div>
+  </noscript>
+
   <div class="page-shell">
-    <!-- Topbar simple -->
     <header class="topbar">
       <div class="topbar-left">
         <div class="brand-logo"><span class="brand-emoji">🧠</span></div>
@@ -50,8 +55,8 @@
         <p class="hero-greeting">Hola, <span id="hero-name">Invitado</span> 👋</p>
       </section>
 
-      <!-- Panel superior -->
-      <section class="panel">
+      <!-- Panel superior (reglas) -->
+      <section class="panel rx-top-info">
         <div class="panel-row">
           <div class="panel-left">
             <div class="badges">
@@ -66,41 +71,632 @@
 
           <div class="panel-right">
             <span id="best-badge" class="badge badge--muted">Mejor r1: 0/100</span>
-            <span id="timer-badge" class="badge">⏱️ 01:00</span>
+            <span id="timer-badge" class="badge badge--muted hidden" aria-live="polite">⏱️ 01:00</span>
           </div>
         </div>
       </section>
 
-      <!-- Vista: inicio -->
-      <section id="view-start" class="panel">
-        <h2 class="panel-title">Instrucciones</h2>
-        <ul class="panel-list">
-          <li>Cuando inicies, verás 5 series numéricas.</li>
-          <li>Selecciona una opción por pregunta.</li>
-          <li>Cuando se acabe el tiempo, se envía automáticamente.</li>
-        </ul>
+      <!-- Vista: selector de sets (tarjetas) -->
+      <section id="view-pick" class="panel">
+        <div class="rx-quiz-head">
+          <h2 class="panel-title">Elige un set (mixto)</h2>
 
-        <div class="panel-actions">
-          <button id="btn-start" class="btn btn-dark" type="button">Iniciar</button>
-          <button id="btn-start-demo" class="btn" type="button">Ver ejemplo</button>
+          <div class="rx-quiz-meta">
+            <span class="badge badge--muted">30 sets</span>
+            <span class="badge badge--muted">Tú eliges (no aleatorio)</span>
+          </div>
         </div>
 
-        <div id="demo-box" class="demo hidden" aria-hidden="true">
+        <p class="muted">Cada set tiene 10 preguntas mixtas. En cada intento salen 5 al azar. Tienes 60s.</p>
+
+
+        <!-- BLOQUE 1 -->
+        <h3 class="panel-title" style="margin-top:14px;">Fundamentos (s1–s6)</h3>
+        <p class="muted" style="margin-top:6px;">Patrones base para construir velocidad: sumas/restas, dobles, alternancias suaves.</p>
+
+        <div class="rx-cards" role="list" aria-label="Sets Fundamentos del nivel r1">
+          <!-- s1 -->
+          <article class="rx-card" role="listitem" data-set="s1">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s1</span>
+                <span class="badge badge--muted" data-set-status="s1">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s1">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 1 · Mixto base</h3>
+            <p class="muted">Patrones simples (sumas/restas), alternancias suaves y diferencias.</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s1">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s1">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s2 -->
+          <article class="rx-card" role="listitem" data-set="s2">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s2</span>
+                <span class="badge badge--muted" data-set-status="s2">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s2">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 2 · Mixto práctica</h3>
+            <p class="muted">Series con dos reglas (intercaladas), saltos y pequeños cambios.</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s2">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s2">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s3 -->
+          <article class="rx-card" role="listitem" data-set="s3">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s3</span>
+                <span class="badge badge--muted" data-set-status="s3">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s3">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 3 · Mixto ritmo</h3>
+            <p class="muted">Diferencias crecientes, escalones y patrones tipo “+2, +3, +4…”.</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s3">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s3">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s4 -->
+          <article class="rx-card" role="listitem" data-set="s4">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s4</span>
+                <span class="badge badge--muted" data-set-status="s4">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s4">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 4 · Mixto cálculo</h3>
+            <p class="muted">Multiplicaciones/divisiones simples, dobles y combinaciones leves.</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s4">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s4">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s5 -->
+          <article class="rx-card" role="listitem" data-set="s5">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s5</span>
+                <span class="badge badge--muted" data-set-status="s5">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s5">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 5 · Mixto ICFES easy</h3>
+            <p class="muted">Series típicas: alternancias + diferencias. Enfoque velocidad.</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s5">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s5">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s6 -->
+          <article class="rx-card" role="listitem" data-set="s6">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s6</span>
+                <span class="badge badge--muted" data-set-status="s6">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s6">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 6 · Mixto ICFES medium</h3>
+            <p class="muted">Dos reglas combinadas, ritmo más rápido, errores comunes controlados.</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s6">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s6">Ver ejemplo</button>
+            </div>
+          </article>
+        </div>
+
+        <!-- BLOQUE 2 -->
+        <h3 class="panel-title" style="margin-top:16px;">Alternancias (s7–s12)</h3>
+        <p class="muted" style="margin-top:6px;">La clave es ver patrón A/B: intercaladas, “× y luego ±”, saltos alternos.</p>
+
+        <div class="rx-cards" role="list" aria-label="Sets Alternancias del nivel r1">
+          <!-- s7 -->
+          <article class="rx-card" role="listitem" data-set="s7">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s7</span>
+                <span class="badge badge--muted" data-set-status="s7">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s7">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 7 · Alternancia suave</h3>
+            <p class="muted">Reglas cortas tipo “+a, −b, +a, −b…”.</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s7">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s7">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s8 -->
+          <article class="rx-card" role="listitem" data-set="s8">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s8</span>
+                <span class="badge badge--muted" data-set-status="s8">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s8">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 8 · Alternancia con multiplicación</h3>
+            <p class="muted">Combinaciones tipo “×2, −1” o “+2, ×3”.</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s8">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s8">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s9 -->
+          <article class="rx-card" role="listitem" data-set="s9">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s9</span>
+                <span class="badge badge--muted" data-set-status="s9">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s9">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 9 · Dos series intercaladas</h3>
+            <p class="muted">Pares una regla, impares otra (separar y resolver).</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s9">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s9">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s10 -->
+          <article class="rx-card" role="listitem" data-set="s10">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s10</span>
+                <span class="badge badge--muted" data-set-status="s10">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s10">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 10 · Alternancia con diferencias</h3>
+            <p class="muted">Diferencias que alternan (+2, +5, +2, +5…).</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s10">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s10">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s11 -->
+          <article class="rx-card" role="listitem" data-set="s11">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s11</span>
+                <span class="badge badge--muted" data-set-status="s11">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s11">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 11 · Alternancia con saltos</h3>
+            <p class="muted">Saltos y cambios rápidos (evitar el “parece +2”).</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s11">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s11">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s12 -->
+          <article class="rx-card" role="listitem" data-set="s12">
+            <div class="rx-card-top">
+              <div class="badges">
+                <span class="badge badge--muted">s12</span>
+                <span class="badge badge--muted" data-set-status="s12">No aprobado</span>
+                <span class="badge badge--muted" data-set-best="s12">Mejor: 0/100</span>
+              </div>
+            </div>
+            <h3 class="rx-card-title">Set 12 · Alternancia examen</h3>
+            <p class="muted">Mixto, pero la clave suele ser A/B (intercaladas).</p>
+            <div class="rx-card-meta">
+              <span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span>
+            </div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s12">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s12">Ver ejemplo</button>
+            </div>
+          </article>
+        </div>
+
+        <!-- BLOQUE 3 -->
+        <h3 class="panel-title" style="margin-top:16px;">Diferencias (s13–s18)</h3>
+        <p class="muted" style="margin-top:6px;">Resolver mirando Δ: crecientes, impares/pares, o patrón en la diferencia.</p>
+
+        <div class="rx-cards" role="list" aria-label="Sets Diferencias del nivel r1">
+          <!-- s13 -->
+          <article class="rx-card" role="listitem" data-set="s13">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s13</span>
+              <span class="badge badge--muted" data-set-status="s13">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s13">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 13 · Δ creciente</h3>
+            <p class="muted">Diferencias tipo +1,+2,+3,+4…</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s13">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s13">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s14 -->
+          <article class="rx-card" role="listitem" data-set="s14">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s14</span>
+              <span class="badge badge--muted" data-set-status="s14">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s14">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 14 · Δ impares</h3>
+            <p class="muted">Diferencias +1,+3,+5,+7…</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s14">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s14">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s15 -->
+          <article class="rx-card" role="listitem" data-set="s15">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s15</span>
+              <span class="badge badge--muted" data-set-status="s15">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s15">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 15 · Δ pares</h3>
+            <p class="muted">Diferencias +2,+4,+6,+8…</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s15">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s15">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s16 -->
+          <article class="rx-card" role="listitem" data-set="s16">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s16</span>
+              <span class="badge badge--muted" data-set-status="s16">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s16">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 16 · Δ con patrón</h3>
+            <p class="muted">Diferencias repetidas (ej. +2,+2,+4,+4…).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s16">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s16">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s17 -->
+          <article class="rx-card" role="listitem" data-set="s17">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s17</span>
+              <span class="badge badge--muted" data-set-status="s17">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s17">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 17 · Doble diferencia</h3>
+            <p class="muted">La diferencia también forma una serie (Δ de Δ).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s17">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s17">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s18 -->
+          <article class="rx-card" role="listitem" data-set="s18">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s18</span>
+              <span class="badge badge--muted" data-set-status="s18">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s18">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 18 · Δ examen</h3>
+            <p class="muted">Mixto, pero casi siempre se resuelve por diferencias.</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s18">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s18">Ver ejemplo</button>
+            </div>
+          </article>
+        </div>
+
+        <!-- BLOQUE 4 -->
+        <h3 class="panel-title" style="margin-top:16px;">Clásicos (s19–s24)</h3>
+        <p class="muted" style="margin-top:6px;">Reconocer familias: cuadrados, cubos, Fibonacci, primos y factoriales.</p>
+
+        <div class="rx-cards" role="list" aria-label="Sets Clásicos del nivel r1">
+          <!-- s19 -->
+          <article class="rx-card" role="listitem" data-set="s19">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s19</span>
+              <span class="badge badge--muted" data-set-status="s19">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s19">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 19 · Cuadrados perfectos</h3>
+            <p class="muted">Series tipo 1²,2²,3²… (y mezclas con Δ).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s19">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s19">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s20 -->
+          <article class="rx-card" role="listitem" data-set="s20">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s20</span>
+              <span class="badge badge--muted" data-set-status="s20">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s20">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 20 · Cubos</h3>
+            <p class="muted">Series tipo 1³,2³,3³… (y variantes).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s20">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s20">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s21 -->
+          <article class="rx-card" role="listitem" data-set="s21">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s21</span>
+              <span class="badge badge--muted" data-set-status="s21">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s21">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 21 · Primos y dobles</h3>
+            <p class="muted">Primos, dobles, o mezcla “primo y su doble”.</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s21">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s21">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s22 -->
+          <article class="rx-card" role="listitem" data-set="s22">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s22</span>
+              <span class="badge badge--muted" data-set-status="s22">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s22">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 22 · Fibonacci y variantes</h3>
+            <p class="muted">Suma de anteriores (y pequeñas variaciones típicas).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s22">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s22">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s23 -->
+          <article class="rx-card" role="listitem" data-set="s23">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s23</span>
+              <span class="badge badge--muted" data-set-status="s23">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s23">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 23 · Factoriales / acumuladas</h3>
+            <p class="muted">×2,×3,×4… y factoriales (rápido de reconocer).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s23">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s23">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s24 -->
+          <article class="rx-card" role="listitem" data-set="s24">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s24</span>
+              <span class="badge badge--muted" data-set-status="s24">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s24">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 24 · Clásicos combinados</h3>
+            <p class="muted">Un poco de todo: reconocer “familias” en segundos.</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s24">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s24">Ver ejemplo</button>
+            </div>
+          </article>
+        </div>
+
+        <!-- BLOQUE 5 -->
+        <h3 class="panel-title" style="margin-top:16px;">Mixto avanzado (s25–s30)</h3>
+        <p class="muted" style="margin-top:6px;">Más distractores y reglas menos obvias (nivel “desafío r1”).</p>
+
+        <div class="rx-cards" role="list" aria-label="Sets Mixto avanzado del nivel r1">
+          <!-- s25 -->
+          <article class="rx-card" role="listitem" data-set="s25">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s25</span>
+              <span class="badge badge--muted" data-set-status="s25">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s25">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 25 · Mixto avanzado 1</h3>
+            <p class="muted">Dos reglas, menos obvias. Control de errores comunes.</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s25">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s25">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s26 -->
+          <article class="rx-card" role="listitem" data-set="s26">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s26</span>
+              <span class="badge badge--muted" data-set-status="s26">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s26">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 26 · Mixto avanzado 2</h3>
+            <p class="muted">Señuelos: parece una regla, pero cambia (mirar Δ o A/B).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s26">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s26">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s27 -->
+          <article class="rx-card" role="listitem" data-set="s27">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s27</span>
+              <span class="badge badge--muted" data-set-status="s27">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s27">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 27 · Mixto avanzado 3</h3>
+            <p class="muted">Requiere detectar diferencias o alternancia escondida.</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s27">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s27">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s28 -->
+          <article class="rx-card" role="listitem" data-set="s28">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s28</span>
+              <span class="badge badge--muted" data-set-status="s28">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s28">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 28 · Mixto avanzado 4</h3>
+            <p class="muted">Combina × y + en la misma regla (tipo ×2+1).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s28">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s28">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s29 -->
+          <article class="rx-card" role="listitem" data-set="s29">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s29</span>
+              <span class="badge badge--muted" data-set-status="s29">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s29">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 29 · Mixto avanzado 5</h3>
+            <p class="muted">Series cortas, decisión rápida (ideal para velocidad).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s29">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s29">Ver ejemplo</button>
+            </div>
+          </article>
+
+          <!-- s30 -->
+          <article class="rx-card" role="listitem" data-set="s30">
+            <div class="rx-card-top"><div class="badges">
+              <span class="badge badge--muted">s30</span>
+              <span class="badge badge--muted" data-set-status="s30">No aprobado</span>
+              <span class="badge badge--muted" data-set-best="s30">Mejor: 0/100</span>
+            </div></div>
+            <h3 class="rx-card-title">Set 30 · Desafío r1</h3>
+            <p class="muted">El set más duro del nivel r1 (trampas y reglas mixtas).</p>
+            <div class="rx-card-meta"><span class="badge">5 preguntas</span><span class="badge">60s</span><span class="badge badge--muted">Aprueba: 70/100</span></div>
+            <div class="panel-actions" style="margin-top:14px;">
+              <button class="btn btn-dark rx-start-set" type="button" data-set="s30">Iniciar</button>
+              <button class="btn rx-view-example" type="button" data-set="s30">Ver ejemplo</button>
+            </div>
+          </article>
+        </div>
+
+        <div id="demo-box" class="demo hidden" aria-hidden="true" style="margin-top:14px;">
           <p class="demo-title"><strong>Ejemplo:</strong> 2, 4, 6, 8, __</p>
           <p class="demo-text muted">Patrón: suma +2. Respuesta: 10.</p>
         </div>
 
+        <!-- Modal: ejemplo (no mueve la página) -->
+        <div id="rx-example-backdrop" class="rx-modal-backdrop hidden" aria-hidden="true"></div>
+
+        <section id="rx-example-modal" class="rx-modal hidden" role="dialog" aria-modal="true" aria-labelledby="rx-example-title" aria-hidden="true">
+          <div class="rx-modal-card">
+            <div class="rx-modal-head">
+              <h3 id="rx-example-title" style="margin:0;">Ejemplo</h3>
+              <button id="rx-example-close" class="rx-modal-close" type="button" aria-label="Cerrar">✕</button>
+            </div>
+
+            <div id="rx-example-body" class="rx-modal-body">
+              <!-- JS inserta aquí el ejemplo -->
+            </div>
+          </div>
+        </section>
+
         <p id="bank-warning" class="muted hidden" style="margin-top:12px;">
-          No hay suficientes preguntas válidas en el banco. Revisa <code>r1banco.js</code>.
+          No se detectó banco (o no hay preguntas válidas). Revisa <code>r1banco.js</code>.
         </p>
       </section>
 
       <!-- Vista: quiz -->
       <section id="view-quiz" class="panel hidden">
-        <h2 class="panel-title">Preguntas</h2>
-        <div id="questions" class="questions"></div>
+        <div class="rx-quiz-head">
+          <h2 class="panel-title">Preguntas</h2>
 
-        <div class="panel-actions">
+          <div class="rx-quiz-meta">
+            <span class="badge badge--muted" id="q-set-badge">Set: --</span>
+            <span class="badge badge--muted" id="q-progress-text">1/5</span>
+            <span class="badge badge--muted" id="q-id-badge">r1q--</span>
+          </div>
+        </div>
+
+        <div class="rx-progressbar" aria-hidden="true">
+          <div class="rx-progressbar-fill" id="q-progress-fill" style="width: 0%"></div>
+        </div>
+
+        <div id="questions" class="rx-stage">
+          <!-- JS pinta aquí una sola pregunta -->
+        </div>
+
+        <div class="panel-actions rx-fallback-actions">
+          <button id="btn-prev" class="btn" type="button">Anterior</button>
+          <button id="btn-next" class="btn btn-dark" type="button">Siguiente</button>
           <button id="btn-submit" class="btn btn-dark" type="button">Enviar</button>
           <button id="btn-finish" class="btn" type="button">Terminar ahora</button>
         </div>
@@ -113,7 +709,8 @@
         <div id="result-summary" class="result-summary"></div>
 
         <div class="panel-actions">
-          <button id="btn-retry" class="btn btn-dark" type="button">Intentar de nuevo</button>
+          <button id="btn-retry" class="btn btn-dark" type="button">Repetir este set</button>
+          <button id="btn-back-sets" class="btn" type="button">Volver a sets</button>
           <a class="btn" href="../../razonamiento.html">Volver al módulo</a>
         </div>
 
@@ -129,8 +726,45 @@
     </footer>
   </div>
 
+  <!-- Barra inferior fija (visible solo durante el quiz) -->
+  <section id="rx-bottom" class="rx-bottom hidden" aria-label="Controles del nivel">
+    <div class="rx-bottom-inner">
+      <div class="rx-bottom-left">
+        <div class="rx-kpi">
+          <div class="rx-kpi-label">Set</div>
+          <div class="rx-kpi-value" id="b-set">--</div>
+        </div>
+
+        <div class="rx-kpi">
+          <div class="rx-kpi-label">Progreso</div>
+          <div class="rx-kpi-value" id="b-progress">1/5</div>
+        </div>
+
+        <div class="rx-kpi">
+          <div class="rx-kpi-label">Puntaje</div>
+          <div class="rx-kpi-value" id="b-score">0</div>
+        </div>
+
+        <div class="rx-kpi rx-kpi-muted">
+          <div class="rx-kpi-label">Mejor</div>
+          <div class="rx-kpi-value" id="b-best">0</div>
+        </div>
+      </div>
+
+      <div class="rx-bottom-center">
+        <div id="b-timer" class="rx-timer rx-timer--ok" aria-live="polite">01:00</div>
+      </div>
+
+      <div class="rx-bottom-right">
+        <button id="b-prev" class="rx-ctrl" type="button" aria-label="Pregunta anterior">◀</button>
+        <button id="b-next" class="rx-ctrl rx-ctrl--primary" type="button" aria-label="Siguiente pregunta">▶</button>
+        <button id="b-submit" class="rx-ctrl rx-ctrl--primary hidden" type="button" aria-label="Enviar nivel">Enviar</button>
+      </div>
+    </div>
+  </section>
+
   <!-- Banco + lógica -->
-  <script defer src="./r1banco.js?v=1"></script>
-  <script defer src="./r1.js?v=1"></script>
+  <script defer src="./r1banco.js?v=4"></script>
+  <script defer src="./r1.js?v=4"></script>
 </body>
 </html>
